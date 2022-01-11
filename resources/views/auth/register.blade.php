@@ -19,36 +19,43 @@
                         <div class="section-title">
                             <h2 class="title">Daftar</h2>
                         </div>
-                        <form method="post" action="">
+                        <form method="POST" action="{{url('register')}}" enctype="multipart/form-data">
+                            @csrf
                             <div class="form-group">
                                 <input class="input" type="text" name="username" placeholder="Username">
-                                <div class="m-2">
-                                    
-                                </div>
+                                @error('username')
+                                    <div class="m-2">
+                                        <small class="text-left text-danger">{{$message}}</small>
+                                    </div>
+                                @enderror
                             </div>
                             <div class="form-group">
                                 <input class="input" type="email" name="email" placeholder="Email">
-                                <div class="m-2">
-                                </div>
+                                @error('email')
+                                    <div class="m-2">
+                                        <small class="text-left text-danger">{{$message}}</small>
+                                    </div>
+                                @enderror
                             </div>
                             <div class="form-group">
                                 <input class="input" type="password" name="password" placeholder="Password">
-                                <div class="m-2">
-                                </div>
+                                @error('password')
+                                    <div class="m-2">
+                                        <small class="text-left text-danger">{{$message}}</small>
+                                    </div>
+                                @enderror
                             </div>
                             <div class="form-group">
-                                <input class="input" type="password" name="password2" placeholder="Ulangi Password">
+                                <input class="input" type="password" name="password2" placeholder="Password Confirmation">
                                 <div class="m-2">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="d-flex justify-content-start">Pilih Role</label>
                                         <select class="form-control selectric" name="role">
-                                            {{-- @foreach ($roles as $role)
-                                            <option value="{{ $role->id }}">{{ $role->name }}</option>
-                                            @endforeach --}}
-                                            <option value="1">1</option>
-                                            <option value="2">2</option>
+                                            @foreach ($roles as $role)
+                                                <option value="{{ $role->id }}">{{ $role->name }}</option>
+                                            @endforeach
                                         </select>
                                 <div class="m-2">
                                 </div>

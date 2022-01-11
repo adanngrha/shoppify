@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\LoginController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,36 +18,51 @@ Route::get('/', function () {
     return view('home');
 });
 
-Route::get('/login', function () {
-    return view('auth.login');
-});
+// Login Regis
+Route::get('login', [LoginController::class, 'login'])->name('login');
+Route::post('login', [LoginController::class, 'storeLogin']);
+Route::get('register', [LoginController::class, 'register'])->name('register');
+Route::post('register', [LoginController::class, 'storeRegister']);
 
-Route::get('/register', function () {
-    return view('auth.register');
-});
-
-Route::get('/profile', function () {
-    return view('buyer.profile.index');
-});
-
-Route::prefix('profile')->group(function(){
-    Route::get('/change-password', function () {
-        return view('buyer.profile.change_password');
+Route::middleware('auth')->group(function() {
+    Route::get('/home', function () {
+        return view('home');
     });
+    Route::middleware('is.buyer')->group(function() {
+        Route::get('/home', function () {
+            return view('home');
+        });
+    });
+    Route::middleware('is.seller')->group(function() {
+        Route::get('/home', function () {
+            return view('home');
+        });
+    });
+});
+
+
+// Route::get('/profile', function () {
+//     return view('buyer.profile.index');
+// });
+
+// Route::prefix('profile')->group(function(){
+//     Route::get('/change-password', function () {
+//         return view('buyer.profile.change_password');
+//     });
     
-    Route::get('/change-email', function () {
-        return view('buyer.profile.change_email');
-    });
-});
+//     Route::get('/change-email', function () {
+//         return view('buyer.profile.change_email');
+//     });
+// });
 
-Route::get('/address', function () {
-    return view('buyer.address.index');
-});
+// Route::get('/address', function () {
+//     return view('buyer.address.index');
+// });
 
-Route::prefix('address')->group(function(){
-    Route::get('/add-address', function () {
-        return view('buyer.address.add_address');
-    });
-});
+// Route::prefix('address')->group(function(){
+//     Route::get('/add-address', function () {
+//         return view('buyer.address.add_address');
+//     });
+// });
 
 

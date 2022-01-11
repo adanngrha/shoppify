@@ -19,18 +19,23 @@
                         <div class="section-title">
                             <h2 class="title">Login</h2>
                         </div>
-                        <form method="post" action="">
+                        <form method="POST" action="{{url('login')}}" enctype="multipart/form-data">
+                            @csrf
                             <div class="form-group">
                                 <input class="input" type="text" name="username" placeholder="Username">
-                                <div class="m-2">
-                                    <small class="text-left text-danger"></small>
-                                </div>
+                                @error('username')
+                                    <div class="m-2">
+                                        <small class="text-left text-danger">{{$message}}</small>
+                                    </div>
+                                @enderror
                             </div>
                             <div class="form-group">
                                 <input class="input" type="password" name="password" placeholder="Password">
-                                <div class="m-2">
-                                    <small class="text-left text-danger"></small>
-                                </div>
+                                @error('username')
+                                    <div class="m-2">
+                                        <small class="text-left text-danger">{{$message}}</small>
+                                    </div>
+                                @enderror
                             </div>
                             <br>
                             <div class="form-group">
