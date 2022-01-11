@@ -18,8 +18,9 @@
 						<!-- aside Widget -->
 						<div class="aside">
 							<h4>Informasi Akun</h4>
-							<h5><a href="account.html"><i class="fa fa-fw fa-user-o"></i> Profil Saya</a></h5>
-							<h5><a href="address.html" class="active"><i class="fa fa-fw fa-map-marker"></i> Alamat Saya</a></h5>
+							<h5><a href="{{ url('/profile') }}"><i class="fa fa-fw fa-user-o"></i> Profil Saya</a></h5>
+							<h5><a href="address.html" class="active"><i class="fa fa-fw fa-map-marker"></i> Alamat Saya<div
+                                    class="notif"></div></a></h5>
 							<h5><a href="favorite.html"><i class="fa fa-fw fa-heart"></i> Favorit Saya</a></h5>
 							<h5><a href="order.html"><i class="fa fa-fw fa-file-text-o"></i> Pesanan Saya</a></h5>
 							<br>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Profile;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
@@ -18,7 +19,7 @@ class LoginController extends Controller
     }
 
     public function storeRegister(Request $request) {
-        
+
         $this->validate($request,[
             'username' => 'required|alpha_dash|unique:users,username',
             'email'=>'required|email|unique:users',
@@ -31,7 +32,31 @@ class LoginController extends Controller
             'password' => Hash::make($request->password),
         ]);
         $user->assignRole($request->role);
-        return redirect('/home');
+        $email = $request->email;
+        $id = User::where('email', $email)->select('id')->get();
+        $user=Profile::create([
+            'user_id' => $id[0]->id,
+            'full_name' => '',
+            'phone_number' => '',
+            'gender' => 'male',
+        ]);
+        $user = User::where('username', $request->username)->first();
+        if ($user) {
+            if (Hash::check($request->password, $user->password)) {
+                if ($user->hasRole('buyer')) {
+                    Auth::login($user);
+                    return redirect('home');
+                } elseif ($user->hasRole('seller')) {
+                    Auth::login($user);
+                    return redirect('home');
+                } else {
+                    Auth::login($user);
+                    return redirect('admin');
+                }
+            }
+            return redirect('login');
+        }
+        return redirect('/');
     }
 
     public function login() {
@@ -43,7 +68,8 @@ class LoginController extends Controller
             'username' => 'required|',
             'password' => 'min:6|',
         ]);
-        $user=User::where('email', $request->email)->first();
+
+        $user=User::where('username', $request->username)->first();
         if ($user) {
             if (Hash::check($request->password, $user->password)) {
                 if ($user->hasRole('buyer')) {
@@ -53,10 +79,20 @@ class LoginController extends Controller
                 elseif ($user->hasRole('seller')) {
                     Auth::login($user);
                     return redirect('home');
+                } else {
+                    Auth::login($user);
+                    return redirect('admin');
                 }
             }
             return redirect('login');
         }
         return redirect('login');
+    }
+
+    public function logout()
+    {
+        auth()->logout();
+        Session::flush();
+        return redirect('/');
     }
 }
