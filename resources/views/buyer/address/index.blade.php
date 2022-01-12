@@ -37,6 +37,17 @@
 								<h3>Alamat Saya</h3>
 								<a href="{{ url('address/add-address') }}" class="icon-primary"><i class="fa fa-fw fa-plus"></i> Tambah Alamat</a>
 							</div>
+							
+							@if (session('status'))
+                            <div class="alert alert-success mb-3 text-center">
+                                <div class="alert-body">
+                                    <button class="close" data-dismiss="alert">
+                                        <span>&times;</span>
+                                    </button>
+                                    {{ session('status') }}
+                                </div>
+                            </div>
+                            @endif
 
                             @foreach ($addresses as $key => $address)
                                 <!-- Start Address -->
