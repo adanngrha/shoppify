@@ -49,9 +49,6 @@ class LoginController extends Controller
                 } elseif ($user->hasRole('seller')) {
                     Auth::login($user);
                     return redirect('home');
-                } else {
-                    Auth::login($user);
-                    return redirect('admin');
                 }
             }
             return redirect('login');

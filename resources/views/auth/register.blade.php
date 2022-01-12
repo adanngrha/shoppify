@@ -53,9 +53,8 @@
                             <div class="form-group">
                                 <label class="d-flex justify-content-start">Pilih Role</label>
                                         <select class="form-control selectric" name="role">
-                                            @foreach ($roles as $role)
-                                                <option value="{{ $role->id }}">{{ $role->name }}</option>
-                                            @endforeach
+                                                <option value="2">Buyer</option>
+                                                <option value="3">Seller</option>
                                         </select>
                                 <div class="m-2">
                                 </div>

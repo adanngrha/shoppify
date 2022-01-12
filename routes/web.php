@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\BuyerController;
 use App\Http\Controllers\LoginController;
 use Illuminate\Support\Facades\Route;
@@ -32,9 +33,7 @@ Route::middleware('auth')->group(function() {
     });
 
     Route::middleware('is.admin')->group(function() {
-        Route::get('/admin', function() {
-            return view('admin.dashboard');
-        });
+        Route::get('/admin', [AdminController::class, 'dashboard'])->name('admin');
     });
 
     Route::middleware('is.buyer')->group(function() {
