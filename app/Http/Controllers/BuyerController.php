@@ -7,9 +7,11 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\Profile;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class BuyerController extends Controller
 {
+    // Profile
     public function profile() {
         $userID = Auth::id();
         $user = User::where('id', $userID)->first();
@@ -17,14 +19,9 @@ class BuyerController extends Controller
         return view('buyer.profile.index', compact('user_profile', 'user'));
     }
 
-    public function storeProfile(Request $request) {
-        $input = $request->all();
-        Profile::create($input);
-        return redirect('/profile');
-    }
-
-    public function editProfile(Request $request, $user_id) {
-        $profile = Profile::find($user_id);
+    public function editProfile(Request $request) {
+        $userID = Auth::id();
+        $profile = Profile::where('user_id', $userID)->first();
         $profile->update([
             'full_name' => $request->full_name,
             'phone_number' => $request->phone_number,
@@ -33,28 +30,97 @@ class BuyerController extends Controller
         return redirect('/profile');
     }
 
-    public function editEmail(Request $request, $userID) {
+    public function editEmail(Request $request) {
+        $this->validate($request, [
+            'old_email' => 'required',
+            'new_email' => 'required',
+        ]);
+
+        $userID = Auth::id();
         $user = User::where('id', $userID)->first();
         if($user->email == $request->old_email) {
             $user->update([
                 'email' => $request->new_email,
             ]);
-            return redirect('/profile');
+            return redirect('profile');
         } else {
-            return redirect('/profile/change-email');
+            return redirect('profile/change-email');
         }
     }
 
-    public function editPassword(Request $request, $userID) {
+    public function editPassword(Request $request) {
+        $this->validate($request, [
+            'old_password' => 'required',
+            'new_password' => 'min:6|required_with:new_password2|same:new_password2',
+            'new_password2' => 'min:6',
+        ]);
+
+        $userID = Auth::id();
         $user = User::where('id', $userID)->first();
-        if ($user->pasword == $request->old_password) {
+        if(Hash::check($request->old_password, $user->password)) {
             $user->update([
-                'password' => $request->new_password,
+                'password' => Hash::make($request->new_password),
             ]);
-            return redirect('/profile');
+            return redirect('profile');
         } else {
-            return redirect('/profile/change-password');
+            return redirect('profile/change-password');
         }
     }
+    // Profile
 
+    // Address
+    public function address() {
+        $userID = Auth::id();
+        $addresses = Address::all()->where('user_id', $userID);
+        return view('buyer.address.index', compact('addresses'));
+    }
+
+    public function addAddress(Request $request) {
+        $userID = Auth::id();
+        $this->validate($request, [
+            'full_name' => 'required|',
+            'phone_number' => 'required|',
+            'address_name' => 'required|',
+            'city' => 'required|',
+            'province' => 'required|',
+            'postal_code' => 'required|',
+        ]);
+
+        Address::create([
+            'user_id' => $userID,
+            'full_name' => $request->full_name,
+            'phone_number' => $request->phone_number,
+            'address_name' => $request->address_name,
+            'city' => $request->city,
+            'province' => $request->province,
+            'postal_code' => $request->postal_code,
+        ]);
+        return redirect('address');
+    }
+
+    public function showAddress(Request $request, $addressID) {
+        $address = Address::where('id', $addressID)->first();
+        return view('buyer.address.edit_address', compact('address'));
+    }
+
+    public function editAddress(Request $request, $addressID) {
+        $address = Address::where('id', $addressID)->first();
+        $this->validate($request, [
+            'full_name' => 'required|',
+            'phone_number' => 'required|',
+            'address_name' => 'required|',
+            'city' => 'required|',
+            'province' => 'required|',
+            'postal_code' => 'required|',
+        ]);
+        $input = $request->all();
+        $address->update($input);
+        return redirect('address');
+    }
+
+    public function deleteAddress($addressID) {
+        Address::destroy($addressID);
+        return redirect('address');
+    }
+    // Address
 }

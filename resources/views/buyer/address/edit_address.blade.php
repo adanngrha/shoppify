@@ -24,7 +24,7 @@
                 <div class="col-md-9">
                     <div id="my-profile">
                         <div class="d-flex justify-content-between align-items-center">
-                            <h3>Tambah Alamat</h3>
+                            <h3>Ubah Alamat</h3>
                             <a href="{{ url('address') }}" class="icon-primary"><i
                                     class="fa fa-fw fa-angle-left"></i> Kembali</a>
                         </div>
@@ -32,7 +32,7 @@
                         <div class="row">
                             <div class="col-md-8">
                                 <div class="billing-details">
-                                    <form action="{{ url('address/add-address') }}" method="POST"
+                                    <form action="{{ url('address/edit-address/'.$address->id) }}" method="POST"
                                     enctype="multipart/form-data">
                                         @csrf
                                         <table class="table table-borderless">
@@ -40,7 +40,7 @@
                                                 <td class="text-right align-middle text-gray" width="150">Nama</td>
                                                 <td class="align-middle pl-4"><input class="input" type="text"
                                                         name="full_name" placeholder="Nama Kamu"
-                                                        value="">
+                                                        value="{{ $address->full_name }}">
                                                     <div class="m-2">
                                                         <small
                                                             class="text-left text-danger"></small>
@@ -51,7 +51,7 @@
                                                 <td class="text-right align-middle text-gray">Nomor Telepon</td>
                                                 <td class="align-middle pl-4"><input class="input" type="number" min="0"
                                                         name="phone_number" placeholder="Nomor Telepon"
-                                                        value="">
+                                                        value="{{ $address->phone_number }}">
                                                     <div class="m-2">
                                                         <small
                                                             class="text-left text-danger"></small>
@@ -62,7 +62,7 @@
                                                 <td class="text-right align-middle text-gray">Alamat</td>
                                                 <td class="align-middle pl-4"><input class="input" type="text"
                                                         name="address_name" placeholder="Nama Jalan, Gedung, No Rumah"
-                                                        value="">
+                                                        value="{{ $address->address_name }}">
                                                     <div class="m-2">
                                                         <small
                                                             class="text-left text-danger"></small>
@@ -73,7 +73,7 @@
                                                 <td class="text-right align-middle text-gray">Kabupaten/Kota</td>
                                                 <td class="align-middle pl-4"><input class="input" type="text"
                                                         name="city" placeholder="Kabupaten/Kota"
-                                                        value="">
+                                                        value="{{ $address->city }}">
                                                     <div class="m-2">
                                                         <small
                                                             class="text-left text-danger"></small>
@@ -84,7 +84,7 @@
                                                 <td class="text-right align-middle text-gray">Provinsi</td>
                                                 <td class="align-middle pl-4"><input class="input" type="text"
                                                         name="province" placeholder="Provinsi"
-                                                        value="">
+                                                        value="{{ $address->province }}">
                                                     <div class="m-2">
                                                         <small
                                                             class="text-left text-danger"></small>
@@ -95,7 +95,7 @@
                                                 <td class="text-right align-middle text-gray">Kode Pos</td>
                                                 <td class="align-middle pl-4"><input class="input" type="number"
                                                         name="postal_code" placeholder="Kode Pos"
-                                                        value="">
+                                                        value="{{ $address->postal_code }}">
                                                     <div class="m-2">
                                                         <small
                                                             class="text-left text-danger"></small>
@@ -105,7 +105,7 @@
                                             <tr>
                                                 <td></td>
                                                 <td class="align-middle pl-4"><button class="primary-btn" name="save"
-                                                        type="submit">Tambah</button></td>
+                                                        type="submit">Simpan</button></td>
                                             </tr>
                                         </table>
                                     </form>

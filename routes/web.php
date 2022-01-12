@@ -39,23 +39,30 @@ Route::middleware('auth')->group(function() {
 
     Route::middleware('is.buyer')->group(function() {
         Route::get('/profile', [BuyerController::class, 'profile'])->name('profile');
-        Route::get('/address', function () {
-            return view('buyer.address.index');
-        });
+        Route::get('/address', [BuyerController::class, 'address'])->name('address');
 
+        // Profile Routes
         Route::prefix('profile')->group(function () {
-            Route::get('/change-password', function () {
-                return view('buyer.profile.change_password');
-            });
+            Route::post('/change-profile', [BuyerController::class, 'editProfile'])->name('editProfile');
             Route::get('/change-email', function () {
                 return view('buyer.profile.change_email');
             });
+            Route::post('/change-email', [BuyerController::class, 'editEmail'])->name('editEmail');
+            Route::get('/change-password', function () {
+                return view('buyer.profile.change_password');
+            });
+            Route::post('/change-password', [BuyerController::class, 'editPassword'])->name('editPassword');
         });
 
+        // Address Routes
         Route::prefix('address')->group(function () {
             Route::get('/add-address', function () {
                 return view('buyer.address.add_address');
             });
+            Route::post('/add-address', [BuyerController::class, 'addAddress'])->name('addAddress');
+            Route::get('show-address/{addressID}', [BuyerController::class, 'showAddress'])->name('showAddress');
+            Route::post('edit-address/{addressID}', [BuyerController::class, 'editAddress'])->name('editAddress');
+            Route::get('delete-address/{addressID}', [BuyerController::class, 'deleteAddress'])->name('deleteAddress');
         });
 
     });

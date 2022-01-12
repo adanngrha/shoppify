@@ -41,7 +41,8 @@
                                 hingga Tanggal Lahir.</div>
                             <div class="col-md-8">
                                 <div class="billing-details">
-                                    <form action="#" method="POST">
+                                    <form action="{{ url('profile/change-profile') }}" method="POST">
+                                        @csrf
                                         <table class="table table-borderless">
                                                 <tr>
                                                 <td class="text-right align-middle text-gray" width="150">Username</td>
@@ -50,7 +51,7 @@
                                             <tr>
                                                 <td class="text-right align-middle text-gray">Nama</td>
                                                 <td class="align-middle pl-4"><input class="input" type="text"
-                                                        name="name" placeholder="Nama" value="{{ $user_profile->full_name }}"></td>
+                                                        name="full_name" placeholder="Nama" value="{{ $user_profile->full_name }}"></td>
                                             </tr>
                                             <tr>
                                                 <td class="text-right align-middle text-gray">Email</td>
@@ -66,14 +67,29 @@
                                             </tr>
                                             <tr>
                                                 <td class="text-right align-middle text-gray">Nomor Telepon</td>
-                                                <td class="align-middle pl-4">123131313213</td>
+                                                <td class="align-middle pl-4"><input class="input" type="text"
+                                                        name="phone_number" placeholder="Phone Number" value="{{ $user_profile->phone_number }}"></td>
                                             </tr>
                                             <tr>
                                                 <td class="text-right align-middle text-gray">Jenis Kelamin</td>
-                                                <td class="align-middle pl-4"><span class="pr-3"><input type="radio"
+                                                <td class="align-middle pl-4">
+                                                    @if ($user_profile->gender == 'male')
+                                                        <span class="pr-3"><input type="radio"
                                                             name="gender" value="male" checked> Laki-laki</span>
-                                                    <span><input type="radio" name="gender" value="female">
+                                                        <span><input type="radio" name="gender" value="female">
                                                         Perempuan</span></td>
+                                                        @elseif ($user_profile->gender == 'female')
+                                                        <span class="pr-3"><input type="radio"
+                                                            name="gender" value="male"> Laki-laki</span>
+                                                        <span><input type="radio" name="gender" value="female" checked>
+                                                        Perempuan</span></td>
+                                                        @else
+                                                        <span class="pr-3"><input type="radio"
+                                                            name="gender" value="male"> Laki-laki</span>
+                                                        <span><input type="radio" name="gender" value="female">
+                                                        Perempuan</span></td>
+                                                    @endif
+
                                             </tr>
                                             <tr>
                                                 <td></td>
