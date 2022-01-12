@@ -11,14 +11,16 @@
             <ul class="header-links pull-right">
                 @if (Route::has('login'))
                     @auth
-                        <li><a href="{{url('/home')}}"><i class="fa fa-user-o"></i> home</a></li>
+                        <li><a href="{{ url('/home') }}"><i class=""></i>Home</a></li>
+                        <li><a href="{{ url('/profile') }}"><i class=""></i> Profile</a></li>
+                        <li><a href="{{ url('/logout') }}"><i class=""></i> Logout</a></li>
                     @else
-                        <li><a href="{{route('login')}}"> Login</a></li>
+                        <li><a href="{{ route('login') }}"> Login</a></li>
 
                         @if (Route::has('register'))
-                        <li><a href="{{route('register')}}"> Register</a></li>
+                        <li><a href="{{ route('register') }}"> Register</a></li>
                         @endif
-                        
+
                     @endauth
                 @endif
                 {{-- <li><a href="#"><i class="fa fa-dollar"></i> USD</a></li>

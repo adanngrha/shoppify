@@ -18,9 +18,9 @@
                     <!-- aside Widget -->
                     <div class="aside">
                         <h4>Informasi Akun</h4>
-                        <h5><a href="account.html" class="active"><i class="fa fa-fw fa-user-o"></i> Profil Saya <div
+                        <h5><a href="{{ url('profile') }}" class="active"><i class="fa fa-fw fa-user-o"></i> Profil Saya <div
                                     class="notif"></div></a></h5>
-                        <h5><a href="address.html"><i class="fa fa-fw fa-map-marker"></i> Alamat Saya</a></h5>
+                        <h5><a href="{{ url('/address') }}"><i class="fa fa-fw fa-map-marker"></i> Alamat Saya</a></h5>
                         <h5><a href="favorite.html"><i class="fa fa-fw fa-heart"></i> Favorit Saya</a></h5>
                         <h5><a href="order.html"><i class="fa fa-fw fa-file-text-o"></i> Pesanan Saya</a></h5>
                         <br>
@@ -41,39 +41,55 @@
                                 hingga Tanggal Lahir.</div>
                             <div class="col-md-8">
                                 <div class="billing-details">
-                                    <form action="#" method="POST">
+                                    <form action="{{ url('profile/change-profile') }}" method="POST">
+                                        @csrf
                                         <table class="table table-borderless">
-                                            <tr>
+                                                <tr>
                                                 <td class="text-right align-middle text-gray" width="150">Username</td>
-                                                <td class="align-middle pl-4">naufalans1</td>
+                                                <td class="align-middle pl-4">{{ $user->username }}</td>
                                             </tr>
                                             <tr>
                                                 <td class="text-right align-middle text-gray">Nama</td>
                                                 <td class="align-middle pl-4"><input class="input" type="text"
-                                                        name="name" placeholder="Nama" value="Naufal Anshor A"></td>
+                                                        name="full_name" placeholder="Nama" value="{{ $user_profile->full_name }}"></td>
                                             </tr>
                                             <tr>
                                                 <td class="text-right align-middle text-gray">Email</td>
-                                                <td class="align-middle pl-4">nau******992@gmail.com <a
-                                                        href="{{url('profile/change-email')}}" class="ml-2"><i
+                                                <td class="align-middle pl-4">{{ $user->email }}<a
+                                                        href="{{ url('profile/change-email') }}" class="ml-2"><i
                                                             class="fa fa-fw fa-pencil-square-o"></i>Ubah</a></td>
                                             </tr>
                                             <tr>
                                                 <td class="text-right align-middle text-gray">Password</td>
-                                                <td class="align-middle pl-4">********** <a href="{{url('profile/change-password')}}"
+                                                <td class="align-middle pl-4">********** <a href="{{ url('profile/change-password') }}"
                                                         class="ml-2"><i class="fa fa-fw fa-pencil-square-o"></i>Ubah</a>
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td class="text-right align-middle text-gray">Nomor Telepon</td>
-                                                <td class="align-middle pl-4">**********76</td>
+                                                <td class="align-middle pl-4"><input class="input" type="text"
+                                                        name="phone_number" placeholder="Phone Number" value="{{ $user_profile->phone_number }}"></td>
                                             </tr>
                                             <tr>
                                                 <td class="text-right align-middle text-gray">Jenis Kelamin</td>
-                                                <td class="align-middle pl-4"><span class="pr-3"><input type="radio"
+                                                <td class="align-middle pl-4">
+                                                    @if ($user_profile->gender == 'male')
+                                                        <span class="pr-3"><input type="radio"
                                                             name="gender" value="male" checked> Laki-laki</span>
-                                                    <span><input type="radio" name="gender" value="female">
+                                                        <span><input type="radio" name="gender" value="female">
                                                         Perempuan</span></td>
+                                                        @elseif ($user_profile->gender == 'female')
+                                                        <span class="pr-3"><input type="radio"
+                                                            name="gender" value="male"> Laki-laki</span>
+                                                        <span><input type="radio" name="gender" value="female" checked>
+                                                        Perempuan</span></td>
+                                                        @else
+                                                        <span class="pr-3"><input type="radio"
+                                                            name="gender" value="male"> Laki-laki</span>
+                                                        <span><input type="radio" name="gender" value="female">
+                                                        Perempuan</span></td>
+                                                    @endif
+
                                             </tr>
                                             <tr>
                                                 <td></td>

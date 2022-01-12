@@ -18,8 +18,9 @@
 						<!-- aside Widget -->
 						<div class="aside">
 							<h4>Informasi Akun</h4>
-							<h5><a href="account.html" class="active"><i class="fa fa-fw fa-user-o"></i> Profil Saya</a></h5>
-							<h5><a href="address.html"><i class="fa fa-fw fa-map-marker"></i> Alamat Saya</a></h5>
+							<h5><a href="{{ url('profile') }}" class="active"><i class="fa fa-fw fa-user-o"></i> Profil Saya <div
+                                    class="notif"></div></a></h5>
+                            <h5><a href="{{ url('/address') }}"><i class="fa fa-fw fa-map-marker"></i> Alamat Saya</a></h5>
 							<h5><a href="favorite.html"><i class="fa fa-fw fa-heart"></i> Favorit Saya</a></h5>
 							<h5><a href="order.html"><i class="fa fa-fw fa-file-text-o"></i> Pesanan Saya</a></h5>
 							<br>
@@ -37,25 +38,26 @@
 									<h3>Ubah Password</h3>
 									<p>Untuk keamanan akun Anda, mohon untuk tidak menyebarkan password Anda ke orang lain.</p>
 								</div>
-								<a href="{{url('profile')}}" class="icon-primary"><i class="fa fa-fw fa-angle-left"></i> Kembali</a>
+								<a href="{{ url('/profile') }}" class="icon-primary"><i class="fa fa-fw fa-angle-left"></i> Kembali</a>
 							</div>
 							<hr>
 							<div class="row">
 								<div class="col-md-8">
 									<div class="billing-details">
-										<form action="#" method="POST">
+										<form action="{{ url('profile/change-password') }}" method="POST">
+                                            @csrf
 											<table class="table table-borderless">
 												<tr>
 													<td class="text-right align-middle text-gray" width="180">Password Lama</td>
-													<td class="align-middle pl-4"><input class="input" type="password" name="password_lama" placeholder="Password Lama"></td>
+													<td class="align-middle pl-4"><input class="input" type="password" name="old_password" placeholder="Password Lama"></td>
 												</tr>
 												<tr>
 													<td class="text-right align-middle text-gray">Password Baru</td>
-													<td class="align-middle pl-4"><input class="input" type="password" name="password_baru" placeholder="Password Baru"></td>
+													<td class="align-middle pl-4"><input class="input" type="password" name="new_password" placeholder="Password Baru"></td>
 												</tr>
 												<tr>
 													<td class="text-right align-middle text-gray">Ulangi Password Baru</td>
-													<td class="align-middle pl-4"><input class="input" type="password" name="password_baru2" placeholder="Ulangi Password Baru"></td>
+													<td class="align-middle pl-4"><input class="input" type="password" name="new_password2" placeholder="Ulangi Password Baru"></td>
 												</tr>
 												<tr>
 													<td></td>

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BuyerController;
 use App\Http\Controllers\LoginController;
 use Illuminate\Support\Facades\Route;
 
@@ -25,44 +26,48 @@ Route::get('register', [LoginController::class, 'register'])->name('register');
 Route::post('register', [LoginController::class, 'storeRegister']);
 
 Route::middleware('auth')->group(function() {
-    Route::get('/home', function () {
+    Route::get('logout', [LoginController::class, 'logout']);
+    Route::get('/home', function() {
         return view('home');
     });
-    Route::middleware('is.buyer')->group(function() {
-        Route::get('/home', function () {
-            return view('home');
+
+    Route::middleware('is.admin')->group(function() {
+        Route::get('/admin', function() {
+            return view('admin.dashboard');
         });
     });
-    Route::middleware('is.seller')->group(function() {
-        Route::get('/home', function () {
-            return view('home');
+
+    Route::middleware('is.buyer')->group(function() {
+        Route::get('/profile', [BuyerController::class, 'profile'])->name('profile');
+        Route::get('/address', [BuyerController::class, 'address'])->name('address');
+
+        // Profile Routes
+        Route::prefix('profile')->group(function () {
+            Route::post('/change-profile', [BuyerController::class, 'editProfile'])->name('editProfile');
+            Route::get('/change-email', function () {
+                return view('buyer.profile.change_email');
+            });
+            Route::post('/change-email', [BuyerController::class, 'editEmail'])->name('editEmail');
+            Route::get('/change-password', function () {
+                return view('buyer.profile.change_password');
+            });
+            Route::post('/change-password', [BuyerController::class, 'editPassword'])->name('editPassword');
         });
+
+        // Address Routes
+        Route::prefix('address')->group(function () {
+            Route::get('/add-address', function () {
+                return view('buyer.address.add_address');
+            });
+            Route::post('/add-address', [BuyerController::class, 'addAddress'])->name('addAddress');
+            Route::get('show-address/{addressID}', [BuyerController::class, 'showAddress'])->name('showAddress');
+            Route::post('edit-address/{addressID}', [BuyerController::class, 'editAddress'])->name('editAddress');
+            Route::get('delete-address/{addressID}', [BuyerController::class, 'deleteAddress'])->name('deleteAddress');
+        });
+
+    });
+
+    Route::middleware('is.seller')->group(function() {
+
     });
 });
-
-
-// Route::get('/profile', function () {
-//     return view('buyer.profile.index');
-// });
-
-// Route::prefix('profile')->group(function(){
-//     Route::get('/change-password', function () {
-//         return view('buyer.profile.change_password');
-//     });
-    
-//     Route::get('/change-email', function () {
-//         return view('buyer.profile.change_email');
-//     });
-// });
-
-// Route::get('/address', function () {
-//     return view('buyer.address.index');
-// });
-
-// Route::prefix('address')->group(function(){
-//     Route::get('/add-address', function () {
-//         return view('buyer.address.add_address');
-//     });
-// });
-
-
