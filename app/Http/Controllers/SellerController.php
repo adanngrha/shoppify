@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Models\Profile;
 use App\Models\Product;
 use App\Models\Product_Images;
+use App\Models\ProductImage;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use File;
@@ -98,15 +99,17 @@ class SellerController extends Controller
             'picture' => 'required|mimes:jpeg,jpg,png|max:2200'
         ]);
 
+        $userID = Auth::id();
         $picture = $request->picture;
         $new_picture = time() . ' - ' . $picture->getClientOriginalName();
 
         $product=Product::create([
+            "user_id" => $userID,
             "name" => $request["name"],
             "price" => $request["price"],
             "stock" => $request["stock"],
             "description" => $request["description"],
-            "location" => $request["location"]
+            "location" => $request["location"],
         ]);
 
         $product->product_images()->create([
@@ -121,9 +124,12 @@ class SellerController extends Controller
 
     public function index()
     {
-        $products = Product::all();
+        $userID = Auth::id();
+        $products = Product::all()->where('user_id', $userID);
+        $product_id = $products->id;
+        $product_images = ProductImage::all()->where('product_id', $product_id);
         //$product_images = Product_Image::all();
-        return view('seller.product.index', compact('products'));
+        return view('seller.product.index', compact('products', 'product_images'));
     }
 
     //Product

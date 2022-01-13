@@ -61,16 +61,18 @@
                             </tr>
                         </thead>
                         <tbody>
+                            @foreach ($products as $key => $product)
                             <tr>
-                                <td class="align-middle">1</td>
-                                <td class="align-middle"><img src="./img/product02.png" width="60"></td>
-                                <td class="align-middle">Nama Produk</td>
-                                <td class="align-middle">100</td>
-                                <td class="align-middle">Rp12.999.000</td>
+                                <td class="align-middle">{{ $key + 1 }}</td>
+                                <td class="align-middle"><img src="" width="60"></td>
+                                <td class="align-middle">{{ $product->name }}</td>
+                                <td class="align-middle">{{ $product->stock }}</td>
+                                <td class="align-middle">Rp{{ $product->price }}</td>
                                 <td class="align-middle"><a class="mr-3" href=""><i
                                             class="fa fa-fw fa-pencil-square-o"></i> Ubah</a> <a href=""><i
                                             class="fa fa-fw fa-trash-o"></i> Hapus</a></td>
                             </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>

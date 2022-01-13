@@ -9,7 +9,7 @@ class ProductImage extends Model
 {
     use HasFactory;
 
-    protected $table = 'products';
+    protected $table = 'product_images';
     protected $guarded = ['id'];
 
     public function products()
