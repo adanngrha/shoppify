@@ -109,24 +109,10 @@ class SellerController extends Controller
             "location" => $request["location"]
         ]);
 
-        $product->product_images->create([
-            'picture' => $new_picture,
-            'product_id' => $product_id
+        $product->product_images()->create([
+            'picture' => $new_picture
         ]);
 
-
-        /*$product = new Product;
-        $product->name=$data['name'];
-        $product->price=$data['price'];
-        $product->stock=$data['stock'];
-        $product->description=$data['description'];
-        $product->location=$data['location'];
-        $product->save();
-
-        $product_image = new Product_Image;
-        $product_image->new_picture=$data['picture'];
-        $product_image->product_id=$data['product_id'];
-        $product->save();*/
 
         $picture->move('img-product-upload/', $new_picture);
 
