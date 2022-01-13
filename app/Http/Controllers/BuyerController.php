@@ -20,6 +20,11 @@ class BuyerController extends Controller
     }
 
     public function editProfile(Request $request) {
+        $this->validate($request,[
+            'full_name' => 'required|',
+            'phone_number'=>'required|',
+            'gender' => 'required|',
+        ]);
         $userID = Auth::id();
         $profile = Profile::where('user_id', $userID)->first();
         $profile->update([
@@ -27,7 +32,7 @@ class BuyerController extends Controller
             'phone_number' => $request->phone_number,
             'gender' => $request->gender,
         ]);
-        return redirect('/profile');
+        return redirect('/profile')->with('status', 'Profile data successfully update!');
     }
 
     public function editEmail(Request $request) {
@@ -95,7 +100,7 @@ class BuyerController extends Controller
             'province' => $request->province,
             'postal_code' => $request->postal_code,
         ]);
-        return redirect('address');
+        return redirect('address')->with('status', 'Profile data successfully add!');
     }
 
     public function showAddress(Request $request, $addressID) {
@@ -115,12 +120,12 @@ class BuyerController extends Controller
         ]);
         $input = $request->all();
         $address->update($input);
-        return redirect('address');
+        return redirect('address')->with('status', 'Profile data successfully update!');;
     }
 
     public function deleteAddress($addressID) {
         Address::destroy($addressID);
-        return redirect('address');
+        return redirect('address')->with('status', 'Profile data successfully delete!');;
     }
     // Address
 }

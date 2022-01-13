@@ -1,5 +1,7 @@
 <?php
 
+
+use App\Http\Controllers\SellerController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\BuyerController;
 use App\Http\Controllers\LoginController;
@@ -70,6 +72,30 @@ Route::middleware('auth')->group(function() {
     });
 
     Route::middleware('is.seller')->group(function() {
+        //Product
+        //Route::get('/product', [SellerController::class, 'index']);
 
+        Route::prefix('product')->group(function () {
+            Route::get('/add-product', [SellerController::class, 'createProduct'])->name('createProduct');
+            Route::post('/list-product', [SellerController::class, 'storeProduct']);
+            Route::get('/list-product', [SellerController::class, 'index'])->name('index');
+        });
+
+        
+
+        // Profile Routes
+        Route::get('/profile', [SellerController::class, 'profile'])->name('profile');
+        
+        Route::prefix('profile')->group(function () {
+            Route::post('/change-profile', [SellerController::class, 'editProfile'])->name('editProfile');
+            Route::get('/change-email', function () {
+                return view('seller.profile.change_email');
+            });
+            Route::post('/change-email', [SellerController::class, 'editEmail'])->name('editEmail');
+            Route::get('/change-password', function () {
+                return view('seller.profile.change_password');
+            });
+            Route::post('/change-password', [SellerController::class, 'editPassword'])->name('editPassword');
+        });
     });
 });

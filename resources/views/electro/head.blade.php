@@ -20,6 +20,7 @@
     <link type="text/css" rel="stylesheet" href="{{ asset('electro/css/nouislider.min.css') }}" />
 
     <!-- Font Awesome Icon -->
+    <link rel="stylesheet" href="{{asset('electro/css/all.min.css')}}">
     <link rel="stylesheet" href="{{ asset('electro/css/font-awesome.min.css') }}" />
 
     <!-- Custom stlylesheet -->
