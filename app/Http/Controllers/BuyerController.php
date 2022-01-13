@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Address;
+use App\Models\Product;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\Profile;
@@ -128,4 +129,5 @@ class BuyerController extends Controller
         return redirect('address')->with('status', 'Profile data successfully delete!');;
     }
     // Address
+
 }

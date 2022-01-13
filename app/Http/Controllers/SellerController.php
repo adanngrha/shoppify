@@ -15,10 +15,6 @@ use File;
 
 class SellerController extends Controller
 {
-    // public function index() {
-    //     return view('seller.product.index');
-    // }
-
     // Profile
     public function profile() {
         $userID = Auth::id();
