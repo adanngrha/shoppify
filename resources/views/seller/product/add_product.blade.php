@@ -32,7 +32,7 @@
                         <div class="row">
                             <div class="col-md-8">
                                 <div class="billing-details">
-                                    <form action="{{ url('product/list-product') }}" method="POST"enctype="multipart/form-data">
+                                    <form action="{{ url('product/list-product') }}" method="POST" enctype="multipart/form-data">
                                         @csrf
                                         <table class="table table-borderless">
                                             <tr>
@@ -93,15 +93,15 @@
                                             <tr>
                                                 <td class="text-right align-middle text-gray">Unggah Gambar</td>
                                                 <td class="align-middle pl-4">
-                                                    <input class="input" type="file"name="picture">
+                                                    <input class="input" type="file" name="picture">
                                                     <div class="m-2">
                                                         <small
                                                             class="text-left text-danger"></small>
                                                     </div>
                                                 </td>
                                             </tr>
-                                            
-                                            
+
+
                                             <tr>
                                                 <td></td>
                                                 <td class="align-middle pl-4"><button class="primary-btn" name="save"
