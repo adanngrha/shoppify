@@ -64,7 +64,7 @@
                             @foreach ($products as $key => $product)
                             <tr>
                                 <td class="align-middle">{{ $key + 1 }}</td>
-                                <td class="align-middle"><img src="" width="60"></td>
+                                <td class="align-middle"><img src="{{ url('img-product-upload/'.$product_images[$key]) }}" width="60"></td>
                                 <td class="align-middle">{{ $product->name }}</td>
                                 <td class="align-middle">{{ $product->stock }}</td>
                                 <td class="align-middle">Rp{{ $product->price }}</td>

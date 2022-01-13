@@ -7,7 +7,6 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Models\Profile;
 use App\Models\Product;
-use App\Models\Product_Images;
 use App\Models\ProductImage;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -113,7 +112,8 @@ class SellerController extends Controller
         ]);
 
         $product->product_images()->create([
-            'picture' => $new_picture
+            'product_id' => $product->id,
+            'picture' => $new_picture,
         ]);
 
 
@@ -126,8 +126,13 @@ class SellerController extends Controller
     {
         $userID = Auth::id();
         $products = Product::all()->where('user_id', $userID);
-        $product_id = $products->id;
-        $product_images = ProductImage::all()->where('product_id', $product_id);
+
+        $product_images = [];
+        foreach ($products as $i => $product) {
+            $product_image = ProductImage::where('product_id', $product->id)->first();
+            $product_images[$i] = $product_image->picture;
+        }
+
         //$product_images = Product_Image::all();
         return view('seller.product.index', compact('products', 'product_images'));
     }
