@@ -78,7 +78,7 @@ class LoginController extends Controller
                     return redirect('home');
                 } else {
                     Auth::login($user);
-                    return redirect('admin');
+                    return redirect('admin/orders');
                 }
             }
             return redirect('login');

@@ -30,10 +30,8 @@
                             <!-- aside Widget -->
                             <div class="aside">
                                 <h4>Informasi</h4>
-                                <h5><a href="admin-order.html" class="active"><i class="fas fa-fw fa-list-ul"></i> Daftar Pesanan</a></h5>
-                                <h5><a href="admin-product.html"><i class="fas fa-fw fa-list"></i> Daftar Produk</a></h5>
-                                <br>
-                                <h5><a href="login.html"><i class="fa fa-fw fa-sign-out"></i> Keluar</a></h5>
+                                <h5><a href="{{ url('admin/orders') }}" class="active"><i class="fas fa-fw fa-list-ul"></i> Daftar Pesanan</a></h5>
+                                    <h5><a href="{{ url('admin/products') }}"><i class="fas fa-fw fa-list"></i> Daftar Produk</a></h5>
                             </div>
                             <!-- /aside Widget -->
                         </div>

@@ -33,7 +33,10 @@ Route::middleware('auth')->group(function() {
     });
 
     Route::middleware('is.admin')->group(function() {
-        Route::get('/admin', [AdminController::class, 'dashboard'])->name('admin');
+        Route::prefix('admin')->group(function () {
+            Route::get('/orders', [AdminController::class, 'orders'])->name('orders');
+            Route::get('/products', [AdminController::class, 'products'])->name('orders');
+        });
     });
 
     Route::middleware('is.buyer')->group(function() {
