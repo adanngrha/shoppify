@@ -1,6 +1,8 @@
 <?php
 
+
 use App\Http\Controllers\SellerController;
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\BuyerController;
 use App\Http\Controllers\LoginController;
 use Illuminate\Support\Facades\Route;
@@ -33,8 +35,9 @@ Route::middleware('auth')->group(function() {
     });
 
     Route::middleware('is.admin')->group(function() {
-        Route::get('/admin', function() {
-            return view('admin.dashboard');
+        Route::prefix('admin')->group(function () {
+            Route::get('/orders', [AdminController::class, 'orders'])->name('orders');
+            Route::get('/products', [AdminController::class, 'products'])->name('orders');
         });
     });
 

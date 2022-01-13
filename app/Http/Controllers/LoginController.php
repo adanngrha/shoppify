@@ -49,9 +49,6 @@ class LoginController extends Controller
                 } elseif ($user->hasRole('seller')) {
                     Auth::login($user);
                     return redirect('home');
-                } else {
-                    Auth::login($user);
-                    return redirect('admin');
                 }
             }
             return redirect('login');
@@ -81,7 +78,7 @@ class LoginController extends Controller
                     return redirect('home');
                 } else {
                     Auth::login($user);
-                    return redirect('admin');
+                    return redirect('admin/orders');
                 }
             }
             return redirect('login');
