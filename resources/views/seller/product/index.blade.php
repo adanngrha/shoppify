@@ -61,10 +61,11 @@
                             </tr>
                         </thead>
                         <tbody>
+                            <?php $i = 0 ?>
                             @foreach ($products as $key => $product)
                             <tr>
-                                <td class="align-middle">{{ $key + 1 }}</td>
-                                <td class="align-middle"><img src="{{ url('img-product-upload/'.$product_images[$key]) }}" width="60"></td>
+                                <td class="align-middle">{{ $i + 1 }}</td>
+                                <td class="align-middle"><img src="{{ url('img-product-upload/'.$product_images[$i]) }}" width="60"></td>
                                 <td class="align-middle">{{ $product->name }}</td>
                                 <td class="align-middle">{{ $product->stock }}</td>
                                 <td class="align-middle">Rp{{ $product->price }}</td>
@@ -72,6 +73,7 @@
                                             class="fa fa-fw fa-pencil-square-o"></i> Ubah</a> <a href=""><i
                                             class="fa fa-fw fa-trash-o"></i> Hapus</a></td>
                             </tr>
+                            <?php $i++ ?>
                             @endforeach
                         </tbody>
                     </table>

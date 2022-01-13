@@ -128,9 +128,11 @@ class SellerController extends Controller
         $products = Product::all()->where('user_id', $userID);
 
         $product_images = [];
-        foreach ($products as $i => $product) {
+        $i = 0;
+        foreach ($products as $product) {
             $product_image = ProductImage::where('product_id', $product->id)->first();
             $product_images[$i] = $product_image->picture;
+            $i++;
         }
 
         //$product_images = Product_Image::all();

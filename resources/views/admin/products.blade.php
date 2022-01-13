@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     @include('electro.head')
-    @include('electro.admin-header')
 
     <body class="antialiased">
+        @include('electro.admin-header')
         <div class="relative flex items-top justify-center min-h-screen bg-gray-100 dark:bg-gray-900 sm:items-center py-4 sm:pt-0">
             @if (Route::has('login'))
                 <div class="hidden fixed top-0 right-0 px-6 py-4 sm:block">
@@ -50,20 +50,27 @@
                                             <th>No</th>
                                             <th>Gambar</th>
                                             <th>Nama</th>
+                                            <th>Seller</th>
                                             <th>Stok</th>
                                             <th>Harga</th>
                                             <th>Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td class="align-middle">1</td>
-                                            <td class="align-middle"><img src="./img/product02.png" width="60"></td>
-                                            <td class="align-middle">Nama Produk</td>
-                                            <td class="align-middle">100</td>
-                                            <td class="align-middle">Rp12.999.000</td>
-                                            <td class="align-middle"><a class="mr-3" href=""><i class="fa fa-fw fa-pencil-square-o"></i> Ubah</a> <a href=""><i class="fa fa-fw fa-trash-o"></i> Hapus</a></td>
-                                        </tr>
+                                        <?php $i = 0 ?>
+                                        @foreach ($products as $product)
+                                            <tr>
+                                                <td class="align-middle">{{ $i + 1 }}</td>
+                                                <td class="align-middle"><img src="{{ url('img-product-upload/'.$product_images[$i]) }}" width="60"></td>
+                                                <td class="align-middle">{{ $product->name }}</td>
+                                                <td class="align-middle">{{ $seller_username[$i] }}</td>
+                                                <td class="align-middle">{{ $product->stock }}</td>
+                                                <td class="align-middle">Rp{{ $product->price }}</td>
+                                                <td class="align-middle"><a class="mr-3" href="">
+                                                    <i class="fa fa-fw fa-trash-o"></i> Hapus</a></td>
+                                            </tr>
+                                            <?php $i++ ?>
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>

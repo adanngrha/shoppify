@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     @include('electro.head')
-    @include('electro.admin-header')
 
     <body class="antialiased">
+        @include('electro.admin-header')
         <div class="relative flex items-top justify-center min-h-screen bg-gray-100 dark:bg-gray-900 sm:items-center py-4 sm:pt-0">
             @if (Route::has('login'))
                 <div class="hidden fixed top-0 right-0 px-6 py-4 sm:block">
@@ -31,7 +31,7 @@
                             <div class="aside">
                                 <h4>Informasi</h4>
                                 <h5><a href="{{ url('admin/orders') }}" class="active"><i class="fas fa-fw fa-list-ul"></i> Daftar Pesanan</a></h5>
-                                    <h5><a href="{{ url('admin/products') }}"><i class="fas fa-fw fa-list"></i> Daftar Produk</a></h5>
+                                <h5><a href="{{ url('admin/products') }}"><i class="fas fa-fw fa-list"></i> Daftar Produk</a></h5>
                             </div>
                             <!-- /aside Widget -->
                         </div>
@@ -60,8 +60,8 @@
                                         <td class="align-middle">naufalans1</td>
                                         <td class="align-middle">1</td>
                                         <td class="align-middle">Rp130.000</td>
-                                        <td class="align-middle">DIBAYAR</td>
-                                        <td class="align-middle"><a href=""><i class="fa fa-fw fa-pencil-square-o"></i> Ubah</a></td>
+                                        <td class="align-middle">DIBAYAR Menunggu Konfirmasi</td>
+                                        <td class="align-middle"><a href=""><i class="fa fa-fw fa-pencil-square-o"></i> Konfirmasi Pembayaran</a></td>
                                     </tr>
                                 </tbody>
                             </table>
