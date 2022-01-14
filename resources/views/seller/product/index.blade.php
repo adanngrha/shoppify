@@ -5,7 +5,7 @@
 
 
 <body>
-    @include('seller.header')
+    @include('electro.header')
 
     <!-- SECTION -->
     <div class="section">
@@ -63,10 +63,11 @@
                             </tr>
                         </thead>
                         <tbody>
+                            <?php $i=0?>
                             @forelse ($products as $key => $product)
                             <tr>
-                                <td class="align-middle">{{ $key + 1 }}</td>
-                                <td class="align-middle"><img src="{{ url('img-product-upload/'.$product_images[$key]) }}" width="60"></td>
+                                <td class="align-middle">{{ $i + 1 }}</td>
+                                <td class="align-middle"><img src="{{ url('img-product-upload/'.$product_images[$i]) }}" width="60"></td>
                                 <td class="align-middle">{{ $product->name }}</td>
                                 <td class="align-middle">{{Str::limit($product->description, 15)}}</td>
                                 <td class="align-middle">{{ $product->stock }}</td>
@@ -85,6 +86,7 @@
                                 <tr >
                                     <td >Data belum terisi!</td>
                                 </tr>
+                                <?php $i++?>
                             @endforelse
                             
                         </tbody>

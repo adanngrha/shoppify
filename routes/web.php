@@ -29,11 +29,12 @@ Route::get('login', [LoginController::class, 'login'])->name('login');
 Route::post('login', [LoginController::class, 'storeLogin']);
 Route::get('register', [LoginController::class, 'register'])->name('register');
 Route::post('register', [LoginController::class, 'storeRegister']);
+Route::get('detail-product/{productID}', [ProductController::class, 'detailProduct'])->name('detailProduct');
 
 Route::middleware('auth')->group(function() {
     Route::get('logout', [LoginController::class, 'logout']);
     Route::get('/home', [HomeController::class, 'home'])->name('home');
-    Route::get('/product-detail', [ProductController::class, 'index'])->name('index');
+    //Route::get('detail-product/{productID}', [ProductController::class, 'detailProduct'])->name('detailProduct');
 
     //admin
     Route::middleware('is.admin')->group(function() {
@@ -81,9 +82,9 @@ Route::middleware('auth')->group(function() {
             Route::get('/add-product', [SellerController::class, 'createProduct'])->name('createProduct');
             Route::post('/list-product', [SellerController::class, 'storeProduct']);
             Route::get('/list-product', [SellerController::class, 'index'])->name('index');
-            Route::get('/{product_id}', [SellerController::class, 'editProduct'])->name('editProduct');
-            Route::put('/{product_id}', [SellerController::class, 'updateProduct'])->name('updateProduct');
-            Route::delete('/{product_id}', [SellerController::class, 'destroyProduct'])->name('destroyProduct');
+            Route::get('/{id}', [SellerController::class, 'editProduct'])->name('editProduct');
+            Route::put('/{id}', [SellerController::class, 'updateProduct'])->name('updateProduct');
+            Route::delete('/{id}', [SellerController::class, 'destroyProduct'])->name('destroyProduct');
         });
 
         // Profile Routes
