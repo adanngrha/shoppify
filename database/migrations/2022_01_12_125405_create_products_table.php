@@ -16,6 +16,7 @@ class CreateProductsTable extends Migration
         Schema::create('products', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('category_id');
             $table->string('name',45);
             $table->integer('price');
             $table->integer('stock');
@@ -23,6 +24,7 @@ class CreateProductsTable extends Migration
             $table->string('location',45);
             $table->timestamps();
             $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('category_id')->references('id')->on('categories');
         });
     }
 

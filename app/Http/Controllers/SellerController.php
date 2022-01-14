@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use App\Models\User;
 use App\Models\Profile;
 use App\Models\Product;
@@ -80,7 +81,8 @@ class SellerController extends Controller
     //Product
     public function createProduct()
     {
-        return view('seller.product.add_product');
+        $categories = Category::all();
+        return view('seller.product.add_product', compact('categories'));
     }
 
     public function storeProduct(Request $request)
@@ -89,12 +91,15 @@ class SellerController extends Controller
             'name' => 'required',
             'price' => 'required',
             'stock' => 'required',
+            'category' => 'required',
             'description' => 'required',
             'location' => 'required',
             'picture' => 'required|mimes:jpeg,jpg,png|max:2200'
         ]);
 
         $userID = Auth::id();
+        $category = Category::where('name', $request["category"])->first();
+        $category_id = $category->id;
         $picture = $request->picture;
         $new_picture = time() . ' - ' . $picture->getClientOriginalName();
 
@@ -103,6 +108,7 @@ class SellerController extends Controller
             "name" => $request["name"],
             "price" => $request["price"],
             "stock" => $request["stock"],
+            "category_id" => $category_id,
             "description" => $request["description"],
             "location" => $request["location"],
         ]);
