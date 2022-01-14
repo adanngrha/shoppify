@@ -45,11 +45,11 @@ Route::middleware('auth')->group(function() {
 
     //buyer
     Route::middleware('is.buyer')->group(function() {
-        Route::get('/profile', [BuyerController::class, 'profile'])->name('profile');
-        Route::get('/address', [BuyerController::class, 'address'])->name('address');
+        Route::get('/buyer-profile', [BuyerController::class, 'profile'])->name('profile');
+        Route::get('/buyer-address', [BuyerController::class, 'address'])->name('address');
 
         // Profile Routes
-        Route::prefix('profile')->group(function () {
+        Route::prefix('buyer-profile')->group(function () {
             Route::post('/change-profile', [BuyerController::class, 'editProfile'])->name('editProfile');
             Route::get('/change-email', function () {
                 return view('buyer.profile.change_email');
@@ -62,7 +62,7 @@ Route::middleware('auth')->group(function() {
         });
 
         // Address Routes
-        Route::prefix('address')->group(function () {
+        Route::prefix('buyer-address')->group(function () {
             Route::get('/add-address', function () {
                 return view('buyer.address.add_address');
             });
@@ -76,20 +76,26 @@ Route::middleware('auth')->group(function() {
 
     //seller
     Route::middleware('is.seller')->group(function() {
+
         //Product
         Route::prefix('product')->group(function () {
             Route::get('/add-product', [SellerController::class, 'createProduct'])->name('createProduct');
             Route::post('/list-product', [SellerController::class, 'storeProduct']);
             Route::get('/list-product', [SellerController::class, 'index'])->name('index');
-            Route::get('/{product_id}', [SellerController::class, 'editProduct'])->name('editProduct');
-            Route::put('/{product_id}', [SellerController::class, 'updateProduct'])->name('updateProduct');
-            Route::delete('/{product_id}', [SellerController::class, 'destroyProduct'])->name('destroyProduct');
+            Route::get('edit/{product_id}', [SellerController::class, 'editProduct'])->name('editProduct');
+            Route::put('edit/{product_id}', [SellerController::class, 'updateProduct'])->name('updateProduct');
+            Route::get('delete/{product_id}', [SellerController::class, 'destroyProduct'])->name('destroyProduct');
+        });
+
+        // Orders
+        Route::prefix('order')->group(function () {
+            Route::get('/list-order', [SellerController::class, 'showOrder'])->name('showOrder');
         });
 
         // Profile Routes
-        Route::get('/profile', [SellerController::class, 'profile'])->name('profile');
+        Route::get('/seller-profile', [SellerController::class, 'profile'])->name('profile');
 
-        Route::prefix('profile')->group(function () {
+        Route::prefix('seller-profile')->group(function () {
             Route::post('/change-profile', [SellerController::class, 'editProfile'])->name('editProfile');
             Route::get('/change-email', function () {
                 return view('seller.profile.change_email');

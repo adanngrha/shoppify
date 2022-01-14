@@ -5,7 +5,7 @@
 
 
 <body>
-    @include('seller.header')
+    @include('electro.header')
 
     <!-- SECTION -->
     <div class="section">
@@ -18,14 +18,12 @@
                     <!-- aside Widget -->
                     <div class="aside">
                         <h4>Informasi Akun</h4>
-                        <h5><a href="{{ url('profile') }}"><i class="fa fa-fw fa-user-o"></i> Profil Saya <div class="notif"></div></a></h5>
+                        <h5><a href="{{ url('/seller-profile') }}"><i class="fa fa-fw fa-user-o"></i> Profil Saya </a></h5>
                         <br>
                         <h4>Informasi Produk</h4>
                         <h5><a href="{{ url('/product/list-product') }}" class="active"><i class="fas fa-fw fa-list"></i> Daftar
-                                Produk</a></h5>
-                        <h5><a href="admin-order.html"><i class="fas fa-fw fa-list-ul"></i> Daftar Pesanan</a></h5>
-                        <br>
-                        <h5><a href="login.html"><i class="fa fa-fw fa-sign-out"></i> Keluar</a></h5>
+                                Produk <div class="notif"></div></a></h5>
+                        <h5><a href="{{ url('/order/list-order') }}"><i class="fas fa-fw fa-list-ul"></i> Daftar Pesanan</a></h5>
                     </div>
                     <!-- /aside Widget -->
                 </div>
@@ -63,10 +61,11 @@
                             </tr>
                         </thead>
                         <tbody>
+                            <?php $i = 0?>
                             @forelse ($products as $key => $product)
                             <tr>
-                                <td class="align-middle">{{ $key + 1 }}</td>
-                                <td class="align-middle"><img src="{{ url('img-product-upload/'.$product_images[$key]) }}" width="60"></td>
+                                <td class="align-middle">{{ $i + 1 }}</td>
+                                <td class="align-middle"><img src="{{ url('img-product-upload/'.$product_images[$i]) }}" width="60"></td>
                                 <td class="align-middle">{{ $product->name }}</td>
                                 <td class="align-middle">{{Str::limit($product->description, 15)}}</td>
                                 <td class="align-middle">{{ $product->stock }}</td>
@@ -74,19 +73,20 @@
                                 <td class="align-middle">{{ $product->location }}</td>
                                 <td class="align-middle">
                                     <form action="/product/{{$product->id}}" method="POST">
-                                        <a class="mr-3" href="/product/{{$product->id}}"><i class="fa fa-fw fa-pencil-square-o"></i> Ubah</a> 
+                                        <a class="mr-3" href="/product/{{$product->id}}"><i class="fa fa-fw fa-pencil-square-o"></i> Ubah</a>
                                         @csrf
                                         @method('DELETE')
                                         <a href="/product/{{$product->id}}" onclick="return confirm('Anda yakin ingin menghapus?')"><i class="fa fa-fw fa-trash-o"></i> Hapus</a>
                                     </td>
                                     </form>
                             </tr>
+                            <?php $i++ ?>
                             @empty
                                 <tr >
                                     <td >Data belum terisi!</td>
                                 </tr>
                             @endforelse
-                            
+
                         </tbody>
                     </table>
                 </div>

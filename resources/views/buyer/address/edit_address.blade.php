@@ -25,14 +25,14 @@
                     <div id="my-profile">
                         <div class="d-flex justify-content-between align-items-center">
                             <h3>Ubah Alamat</h3>
-                            <a href="{{ url('address') }}" class="icon-primary"><i
+                            <a href="{{ url('buyer-address') }}" class="icon-primary"><i
                                     class="fa fa-fw fa-angle-left"></i> Kembali</a>
                         </div>
                         <hr>
                         <div class="row">
                             <div class="col-md-8">
                                 <div class="billing-details">
-                                    <form action="{{ url('address/edit-address/'.$address->id) }}" method="POST"
+                                    <form action="{{ url('buyer-address/edit-address/'.$address->id) }}" method="POST"
                                     enctype="multipart/form-data">
                                         @csrf
                                         <table class="table table-borderless">

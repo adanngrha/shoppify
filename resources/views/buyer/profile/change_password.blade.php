@@ -18,9 +18,9 @@
 						<!-- aside Widget -->
 						<div class="aside">
 							<h4>Informasi Akun</h4>
-							<h5><a href="{{ url('profile') }}" class="active"><i class="fa fa-fw fa-user-o"></i> Profil Saya <div
+							<h5><a href="{{ url('/buyer-profile') }}" class="active"><i class="fa fa-fw fa-user-o"></i> Profil Saya <div
                                     class="notif"></div></a></h5>
-                            <h5><a href="{{ url('/address') }}"><i class="fa fa-fw fa-map-marker"></i> Alamat Saya</a></h5>
+                            <h5><a href="{{ url('/buyer-address') }}"><i class="fa fa-fw fa-map-marker"></i> Alamat Saya</a></h5>
 							<h5><a href="favorite.html"><i class="fa fa-fw fa-heart"></i> Favorit Saya</a></h5>
 							<h5><a href="order.html"><i class="fa fa-fw fa-file-text-o"></i> Pesanan Saya</a></h5>
 							<br>
@@ -38,13 +38,13 @@
 									<h3>Ubah Password</h3>
 									<p>Untuk keamanan akun Anda, mohon untuk tidak menyebarkan password Anda ke orang lain.</p>
 								</div>
-								<a href="{{ url('/profile') }}" class="icon-primary"><i class="fa fa-fw fa-angle-left"></i> Kembali</a>
+								<a href="{{ url('/buyer-profile') }}" class="icon-primary"><i class="fa fa-fw fa-angle-left"></i> Kembali</a>
 							</div>
 							<hr>
 							<div class="row">
 								<div class="col-md-8">
 									<div class="billing-details">
-										<form action="{{ url('profile/change-password') }}" method="POST">
+										<form action="{{ url('buyer-profile/change-password') }}" method="POST">
                                             @csrf
 											<table class="table table-borderless">
 												<tr>

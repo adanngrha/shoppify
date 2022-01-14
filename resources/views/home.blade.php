@@ -2,7 +2,8 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
     @include('electro.head')
-    @include('electro.header')
+
+        @include('electro.header')
 
     <body class="antialiased">
         <!-- NAVIGATION -->

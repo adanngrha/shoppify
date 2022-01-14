@@ -10,7 +10,7 @@ use App\Models\Product;
 use App\Models\ProductImage;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use File;
+use League\Flysystem\File;
 
 
 class SellerController extends Controller
@@ -138,7 +138,7 @@ class SellerController extends Controller
     public function editProduct($id) {
         $product = Product::find($id);
         $product_image = ProductImage::find('product_id', $product->id)->first();
-        
+
         return view('seller.product.edit_product',compact('product', 'product_image'));
     }
 
@@ -179,7 +179,7 @@ class SellerController extends Controller
                 "location" => $request["location"],
             ];
         }
-        
+
         $product->update($product_data);
         $product_image->update($product_img_data);
 
@@ -191,7 +191,7 @@ class SellerController extends Controller
         $product_id=$product->id;
         ProductImage::destroy($id);
         Product::destroy($product_id);
-        
+
         //$product = Product::where('id', $id)->delete();
         //$product_image = Product::find($id)->product_images()->delete();
         //$product->product_images()->whereId($id)->delete();
@@ -199,4 +199,9 @@ class SellerController extends Controller
     }
 
     //Product
+
+    // Order
+    public function showOrder() {
+        return view('seller.order.index');
+    }
 }
