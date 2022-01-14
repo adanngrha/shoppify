@@ -1,6 +1,7 @@
 <?php
 
 
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SellerController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\BuyerController;
@@ -32,7 +33,9 @@ Route::post('register', [LoginController::class, 'storeRegister']);
 Route::middleware('auth')->group(function() {
     Route::get('logout', [LoginController::class, 'logout']);
     Route::get('/home', [HomeController::class, 'home'])->name('home');
+    Route::get('/product-detail', [ProductController::class, 'index'])->name('index');
 
+    //admin
     Route::middleware('is.admin')->group(function() {
         Route::prefix('admin')->group(function () {
             Route::get('/orders', [AdminController::class, 'orders'])->name('orders');
@@ -40,6 +43,7 @@ Route::middleware('auth')->group(function() {
         });
     });
 
+    //buyer
     Route::middleware('is.buyer')->group(function() {
         Route::get('/profile', [BuyerController::class, 'profile'])->name('profile');
         Route::get('/address', [BuyerController::class, 'address'])->name('address');
@@ -70,13 +74,16 @@ Route::middleware('auth')->group(function() {
 
     });
 
+    //seller
     Route::middleware('is.seller')->group(function() {
-
         //Product
         Route::prefix('product')->group(function () {
             Route::get('/add-product', [SellerController::class, 'createProduct'])->name('createProduct');
             Route::post('/list-product', [SellerController::class, 'storeProduct']);
             Route::get('/list-product', [SellerController::class, 'index'])->name('index');
+            Route::get('/{product_id}', [SellerController::class, 'editProduct'])->name('editProduct');
+            Route::put('/{product_id}', [SellerController::class, 'updateProduct'])->name('updateProduct');
+            Route::delete('/{product_id}', [SellerController::class, 'destroyProduct'])->name('destroyProduct');
         });
 
         // Profile Routes

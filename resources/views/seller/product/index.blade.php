@@ -5,7 +5,7 @@
 
 
 <body>
-    @include('electro.header')
+    @include('seller.header')
 
     <!-- SECTION -->
     <div class="section">
@@ -55,26 +55,38 @@
                                 <th>No</th>
                                 <th>Gambar</th>
                                 <th>Nama</th>
+                                <th>Deskripsi</th>
                                 <th>Stok</th>
                                 <th>Harga</th>
+                                <th>Lokasi</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <?php $i = 0 ?>
-                            @foreach ($products as $key => $product)
+                            @forelse ($products as $key => $product)
                             <tr>
-                                <td class="align-middle">{{ $i + 1 }}</td>
-                                <td class="align-middle"><img src="{{ url('img-product-upload/'.$product_images[$i]) }}" width="60"></td>
+                                <td class="align-middle">{{ $key + 1 }}</td>
+                                <td class="align-middle"><img src="{{ url('img-product-upload/'.$product_images[$key]) }}" width="60"></td>
                                 <td class="align-middle">{{ $product->name }}</td>
+                                <td class="align-middle">{{Str::limit($product->description, 15)}}</td>
                                 <td class="align-middle">{{ $product->stock }}</td>
                                 <td class="align-middle">Rp{{ $product->price }}</td>
-                                <td class="align-middle"><a class="mr-3" href=""><i
-                                            class="fa fa-fw fa-pencil-square-o"></i> Ubah</a> <a href=""><i
-                                            class="fa fa-fw fa-trash-o"></i> Hapus</a></td>
+                                <td class="align-middle">{{ $product->location }}</td>
+                                <td class="align-middle">
+                                    <form action="/product/{{$product->id}}" method="POST">
+                                        <a class="mr-3" href="/product/{{$product->id}}"><i class="fa fa-fw fa-pencil-square-o"></i> Ubah</a> 
+                                        @csrf
+                                        @method('DELETE')
+                                        <a href="/product/{{$product->id}}" onclick="return confirm('Anda yakin ingin menghapus?')"><i class="fa fa-fw fa-trash-o"></i> Hapus</a>
+                                    </td>
+                                    </form>
                             </tr>
-                            <?php $i++ ?>
-                            @endforeach
+                            @empty
+                                <tr >
+                                    <td >Data belum terisi!</td>
+                                </tr>
+                            @endforelse
+                            
                         </tbody>
                     </table>
                 </div>

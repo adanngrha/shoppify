@@ -5,7 +5,7 @@
 
 
 <body>
-    @include('electro.header')
+    @include('seller.header')
 
     <!-- SECTION -->
     <div class="section">
@@ -70,9 +70,9 @@
                                             </tr>
                                             <tr>
                                                 <td class="text-right align-middle text-gray">Deskripsi</td>
-                                                <td class="align-middle pl-4"><input class="input" type="text"
-                                                        name="description" placeholder="Deskripsi Barag"
-                                                        value="">
+                                                <td class="align-middle pl-4">
+                                                <textarea name="description" id="description" class="form-control" cols="30" rows="10" placeholder="Deskripsi Barag"></textarea>
+                                                
                                                     <div class="m-2">
                                                         <small
                                                             class="text-left text-danger"></small>

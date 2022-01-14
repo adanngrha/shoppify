@@ -5,7 +5,7 @@
 
 
 <body>
-    @include('electro.header')
+    @include('buyer.header')
 
     <!-- SECTION -->
 		<div class="section">

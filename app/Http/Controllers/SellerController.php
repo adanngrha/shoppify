@@ -135,5 +135,68 @@ class SellerController extends Controller
         return view('seller.product.index', compact('products', 'product_images'));
     }
 
+    public function editProduct($id) {
+        $product = Product::find($id);
+        $product_image = ProductImage::find('product_id', $product->id)->first();
+        
+        return view('seller.product.edit_product',compact('product', 'product_image'));
+    }
+
+    public function updateProduct($id, Request $request) {
+        $request->validate([
+            'name' => 'required',
+            'price' => 'required',
+            'stock' => 'required',
+            'description' => 'required',
+            'location' => 'required',
+            'picture' => 'required|mimes:jpeg,jpg,png|max:2200'
+        ]);
+
+        $product = Product::findorfail($id);
+        $product_id=$product->id;
+        $product_image = ProductImage::findorfail($product_id);
+        if ($request->has('picture')) {
+            File::delete("img-product-upload/".$product_image->picture);
+            $picture = $request->picture;
+            $new_picture = time() . ' - ' . $picture->getClientOriginalName();
+            $picture->move('img-product-upload/', $new_picture);
+            $product_data = [
+                "name" => $request["name"],
+                "price" => $request["price"],
+                "stock" => $request["stock"],
+                "description" => $request["description"],
+                "location" => $request["location"],
+            ];
+                $product_img_data = [
+                    'picture' => $new_picture,
+                ];
+        } else {
+            $product_data = [
+                "name" => $request["name"],
+                "price" => $request["price"],
+                "stock" => $request["stock"],
+                "description" => $request["description"],
+                "location" => $request["location"],
+            ];
+        }
+        
+        $product->update($product_data);
+        $product_image->update($product_img_data);
+
+        return redirect('/product/list-product')->with('success', 'Data product successfully updated!');
+    }
+
+    public function destroyProdcut($id) {
+        $product = Product::find($id);
+        $product_id=$product->id;
+        ProductImage::destroy($id);
+        Product::destroy($product_id);
+        
+        //$product = Product::where('id', $id)->delete();
+        //$product_image = Product::find($id)->product_images()->delete();
+        //$product->product_images()->whereId($id)->delete();
+        return redirect('/product/list-product')->with('success', 'Submission successfully deleted!');
+    }
+
     //Product
 }
