@@ -5,7 +5,7 @@
 
 
 <body>
-    @include('buyer.header')
+    @include('electro.header')
 
     <!-- SECTION -->
 		<div class="section">
@@ -18,13 +18,11 @@
 						<!-- aside Widget -->
 						<div class="aside">
 							<h4>Informasi Akun</h4>
-							<h5><a href="{{ url('profile') }}"><i class="fa fa-fw fa-user-o"></i> Profil Saya </a></h5>
-                            <h5><a href="{{ url('/address') }}"  class="active"><i class="fa fa-fw fa-map-marker"></i> Alamat Saya<div
+							<h5><a href="{{ url('/buyer-profile') }}"><i class="fa fa-fw fa-user-o"></i> Profil Saya </a></h5>
+                            <h5><a href="{{ url('/buyer-address') }}"  class="active"><i class="fa fa-fw fa-map-marker"></i> Alamat Saya<div
                                     class="notif"></div></a></h5>
 							<h5><a href="favorite.html"><i class="fa fa-fw fa-heart"></i> Favorit Saya</a></h5>
 							<h5><a href="order.html"><i class="fa fa-fw fa-file-text-o"></i> Pesanan Saya</a></h5>
-							<br>
-							<h5><a href="login.html"><i class="fa fa-fw fa-sign-out"></i> Keluar</a></h5>
 						</div>
 						<!-- /aside Widget -->
 					</div>
@@ -35,9 +33,9 @@
 						<div id="my-profile">
 							<div class="d-flex justify-content-between align-items-center">
 								<h3>Alamat Saya</h3>
-								<a href="{{ url('address/add-address') }}" class="icon-primary"><i class="fa fa-fw fa-plus"></i> Tambah Alamat</a>
+								<a href="{{ url('buyer-address/add-address') }}" class="icon-primary"><i class="fa fa-fw fa-plus"></i> Tambah Alamat</a>
 							</div>
-							
+
 							@if (session('status'))
                             <div class="alert alert-success mb-3 text-center">
                                 <div class="alert-body">

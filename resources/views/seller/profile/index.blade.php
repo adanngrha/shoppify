@@ -18,14 +18,12 @@
                     <!-- aside Widget -->
                     <div class="aside">
                         <h4>Informasi Akun</h4>
-                        <h5><a href="{{ url('profile') }}"><i class="fa fa-fw fa-user-o"></i> Profil Saya <div class="notif"></div></a></h5>
+                        <h5><a href="{{ url('/seller-profile') }}" class="active"><i class="fa fa-fw fa-user-o"></i> Profil Saya <div class="notif"></div></a></h5>
                         <br>
                         <h4>Informasi Produk</h4>
-                        <h5><a href="{{ url('/product/list-product') }}" class="active"><i class="fas fa-fw fa-list"></i> Daftar
+                        <h5><a href="{{ url('/product/list-product') }}" ><i class="fas fa-fw fa-list"></i> Daftar
                                 Produk</a></h5>
                         <h5><a href="admin-order.html"><i class="fas fa-fw fa-list-ul"></i> Daftar Pesanan</a></h5>
-                        <br>
-                        <h5><a href="login.html"><i class="fa fa-fw fa-sign-out"></i> Keluar</a></h5>
                     </div>
                     <!-- /aside Widget -->
                 </div>
@@ -50,7 +48,7 @@
                             @endif
                             <div class="col-md-8">
                                 <div class="billing-details">
-                                    <form action="{{ url('profile/change-profile') }}" method="POST">
+                                    <form action="{{ url('seller-profile/change-profile') }}" method="POST">
                                         @csrf
                                         <table class="table table-borderless">
                                                 <tr>
@@ -67,17 +65,17 @@
                                                         </div>
                                                     @enderror
                                                 </td>
-                                                
+
                                             </tr>
                                             <tr>
                                                 <td class="text-right align-middle text-gray">Email</td>
                                                 <td class="align-middle pl-4">{{ $user->email }}<a
-                                                        href="{{ url('profile/change-email') }}" class="ml-2"><i
+                                                        href="{{ url('seller-profile/change-email') }}" class="ml-2"><i
                                                             class="fa fa-fw fa-pencil-square-o"></i>Ubah</a></td>
                                             </tr>
                                             <tr>
                                                 <td class="text-right align-middle text-gray">Password</td>
-                                                <td class="align-middle pl-4">********** <a href="{{ url('profile/change-password') }}"
+                                                <td class="align-middle pl-4">********** <a href="{{ url('seller-profile/change-password') }}"
                                                         class="ml-2"><i class="fa fa-fw fa-pencil-square-o"></i>Ubah</a>
                                                 </td>
                                             </tr>
@@ -91,7 +89,7 @@
                                                         </div>
                                                     @enderror
                                                 </td>
-                                                
+
                                             </tr>
                                             <tr>
                                                 <td class="text-right align-middle text-gray">Jenis Kelamin</td>
@@ -112,7 +110,7 @@
                                                         <span><input type="radio" name="gender" value="female">
                                                         Perempuan</span></td>
                                                     @endif
-                                                
+
                                             </tr>
                                             <tr>
                                                 <td></td>

@@ -4,13 +4,14 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use App\Models\User;
 use App\Models\Profile;
 use App\Models\Product;
 use App\Models\ProductImage;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use File;
+use League\Flysystem\File;
 
 
 class SellerController extends Controller
@@ -80,7 +81,8 @@ class SellerController extends Controller
     //Product
     public function createProduct()
     {
-        return view('seller.product.add_product');
+        $categories = Category::all();
+        return view('seller.product.add_product', compact('categories'));
     }
 
     public function storeProduct(Request $request)
@@ -89,12 +91,15 @@ class SellerController extends Controller
             'name' => 'required',
             'price' => 'required',
             'stock' => 'required',
+            'category' => 'required',
             'description' => 'required',
             'location' => 'required',
             'picture' => 'required|mimes:jpeg,jpg,png|max:2200'
         ]);
 
         $userID = Auth::id();
+        $category = Category::where('name', $request["category"])->first();
+        $category_id = $category->id;
         $picture = $request->picture;
         $new_picture = time() . ' - ' . $picture->getClientOriginalName();
 
@@ -103,6 +108,7 @@ class SellerController extends Controller
             "name" => $request["name"],
             "price" => $request["price"],
             "stock" => $request["stock"],
+            "category_id" => $category_id,
             "description" => $request["description"],
             "location" => $request["location"],
         ]);
@@ -138,7 +144,7 @@ class SellerController extends Controller
     public function editProduct($id) {
         $product = Product::find($id);
         $product_image = ProductImage::find('product_id', $product->id)->first();
-        
+
         return view('seller.product.edit_product',compact('product', 'product_image'));
     }
 
@@ -181,7 +187,7 @@ class SellerController extends Controller
                 "location" => $request["location"],
             ];
         }
-        
+
         $product->update($product_data);
         $product_image->update($product_img_data);
 
@@ -193,7 +199,7 @@ class SellerController extends Controller
         $product_id=$product->id;
         ProductImage::destroy($id);
         Product::destroy($product_id);
-        
+
         //$product = Product::where('id', $id)->delete();
         //$product_image = Product::find($id)->product_images()->delete();
         //$product->product_images()->whereId($id)->delete();
@@ -201,4 +207,9 @@ class SellerController extends Controller
     }
 
     //Product
+
+    // Order
+    public function showOrder() {
+        return view('seller.order.index');
+    }
 }

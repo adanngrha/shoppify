@@ -32,7 +32,7 @@
                         <div class="row">
                             <div class="col-md-8">
                                 <div class="billing-details">
-                                    <form action="{{ url('/product/'.$product->id)}}" method="POST" enctype="multipart/form-data">
+                                    <form action="{{ url('product/'.$product->id)}}" method="POST" enctype="multipart/form-data">
                                         @csrf
                                         @method('put')
                                         <table class="table table-borderless">

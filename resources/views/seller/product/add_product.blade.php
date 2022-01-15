@@ -69,10 +69,24 @@
                                                 </td>
                                             </tr>
                                             <tr>
+                                                <td class="text-right align-middle text-gray">Kategori </td>
+                                                <td class="align-middle pl-4">
+                                                    <select class="form-control selectric" name="category">
+                                                        @foreach ($categories as $category)
+                                                            <option value="{{ $category->name }}">{{ $category->name }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                    <div class="m-2">
+                                                        <small
+                                                            class="text-left text-danger"></small>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
                                                 <td class="text-right align-middle text-gray">Deskripsi</td>
                                                 <td class="align-middle pl-4">
                                                 <textarea name="description" id="description" class="form-control" cols="30" rows="10" placeholder="Deskripsi Barag"></textarea>
-                                                
+
                                                     <div class="m-2">
                                                         <small
                                                             class="text-left text-danger"></small>

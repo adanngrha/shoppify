@@ -5,7 +5,7 @@
 
 
 <body>
-    @include('buyer.header')
+    @include('electro.header')
 
     <!-- SECTION -->
     <div class="section">
@@ -25,14 +25,14 @@
                     <div id="my-profile">
                         <div class="d-flex justify-content-between align-items-center">
                             <h3>Tambah Alamat</h3>
-                            <a href="{{ url('address') }}" class="icon-primary"><i
+                            <a href="{{ url('buyer-address') }}" class="icon-primary"><i
                                     class="fa fa-fw fa-angle-left"></i> Kembali</a>
                         </div>
                         <hr>
                         <div class="row">
                             <div class="col-md-8">
                                 <div class="billing-details">
-                                    <form action="{{ url('address/add-address') }}" method="POST"
+                                    <form action="{{ url('buyer-address/add-address') }}" method="POST"
                                     enctype="multipart/form-data">
                                         @csrf
                                         <table class="table table-borderless">

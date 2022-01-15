@@ -12,7 +12,12 @@
                 @if (Route::has('login'))
                     @auth
                         <li><a href="{{ url('/home') }}"><i class=""></i>Home</a></li>
-                        <li><a href="{{ url('/profile') }}"><i class=""></i> Profile</a></li>
+                        @if (Auth::user()->hasRole('buyer'))
+                            <li><a href="{{ url('/buyer-profile') }}"><i class=""></i> Profile</a></li>
+                        @else
+                            <li><a href="{{ url('/seller-profile') }}"><i class=""></i> Profile</a></li>
+                        @endif
+
                         <li><a href="{{ url('/logout') }}"><i class=""></i> Logout</a></li>
                     @else
                         <li><a href="{{ route('login') }}"> Login</a></li>
