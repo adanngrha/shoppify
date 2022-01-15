@@ -83,9 +83,9 @@ Route::middleware('auth')->group(function() {
             Route::get('/add-product', [SellerController::class, 'createProduct'])->name('createProduct');
             Route::post('/list-product', [SellerController::class, 'storeProduct']);
             Route::get('/list-product', [SellerController::class, 'index'])->name('index');
-            Route::get('/{id}', [SellerController::class, 'editProduct'])->name('editProduct');
-            Route::put('/{id}', [SellerController::class, 'updateProduct'])->name('updateProduct');
-            Route::delete('/{id}', [SellerController::class, 'destroyProduct'])->name('destroyProduct');
+            //Route::get('/{id}', [SellerController::class, 'editProduct'])->name('editProduct');
+            //Route::put('/{id}', [SellerController::class, 'updateProduct'])->name('updateProduct');
+            //Route::delete('/{id}', [SellerController::class, 'destroyProduct'])->name('destroyProduct');
         });
 
         // Profile Routes
