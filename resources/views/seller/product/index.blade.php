@@ -63,7 +63,6 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <?php $i=0?>
                             @forelse ($products as $key => $product)
                             <tr>
                                 <td class="align-middle">{{ $i + 1 }}</td>

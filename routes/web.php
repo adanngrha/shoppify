@@ -34,6 +34,7 @@ Route::get('detail-product/{productID}', [ProductController::class, 'detailProdu
 Route::middleware('auth')->group(function() {
     Route::get('logout', [LoginController::class, 'logout']);
     Route::get('/home', [HomeController::class, 'home'])->name('home');
+    
     //Route::get('detail-product/{productID}', [ProductController::class, 'detailProduct'])->name('detailProduct');
 
     //admin
