@@ -85,6 +85,7 @@
                                 <tr >
                                     <td >Data belum terisi!</td>
                                 </tr>
+                                <?php $i++?>
                             @endforelse
 
                         </tbody>

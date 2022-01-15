@@ -9,19 +9,18 @@ use App\Models\ProductImage;
 
 class ProductController extends Controller
 {
-    public function index()
+    public function detailProduct($productID)
     {
-        $products = Product::all();
-
-        $product_images = [];
-        $i = 0;
-        foreach ($products as $product) {
-            $product_image = ProductImage::where('product_id', $product->id)->first();
-            $product_images[$i] = $product_image->picture;
-            $i++;
-        }
+        $products = Product::where('id',$productID)->first();
+        //$product_images = [];
+        //$i = 0;
+        //foreach ($products as $product) {
+            $product_image = ProductImage::where('product_id', $products->id)->first();
+            //$product_images[$i] = $product_image->picture;
+            //$i++;
+        //}
 
         //$product_images = Product_Image::all();
-        return view('product.index', compact('products', 'product_images'));
+        return view('product.index', compact('products', 'product_image'));
     }
 }

@@ -159,8 +159,10 @@ class SellerController extends Controller
         ]);
 
         $product = Product::findorfail($id);
+        
         $product_id=$product->id;
         $product_image = ProductImage::findorfail($product_id);
+
         if ($request->has('picture')) {
             File::delete("img-product-upload/".$product_image->picture);
             $picture = $request->picture;
