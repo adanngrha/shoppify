@@ -28,28 +28,34 @@
 								</tr>
 							</thead>
 							<tbody>
+								@forelse ($products as $key => $product)
 								<tr class="hr text-center">
 									<td width="60">
 										<a href="order-details.html" class="no-hover">
-											<img src="./img/product01.png" width="100" alt="">
+											{{-- <img src="{{ url('img-product-upload/'.$product_images[$key-1]->picture) }}" width="100" alt=""> --}}
 										</a>
 									</td>
-									<td class="pt-5 text-left" width="400">Judul Produk</td>
-									<td class="align-middle"><del class="text-gray mr-2">Rp10.000.000</del> Rp9.000.000</td>
+									<td class="pt-5 text-left" width="400">{{$product->name}}</td>
+									<td class="align-middle">Rp{{$pr=$product->price}}</td>
 									<td class="align-middle" width="100">
 										<div class="add-to-cart">
 											<div class="qty-label">
 												<div class="input-number">
-													<input type="number" value="1" min="1" max="">
+													<input type="number" value="{{$cr=$carts[$key-1]->quantity}}" min="1" max="">
 													<span class="qty-up">+</span>
 													<span class="qty-down">-</span>
 												</div>
 											</div>
 										</div>
 									</td>
-									<td class="align-middle">Rp9.000.000</td>
+									<td class="align-middle">{{$pr*$cr}}</td>
 									<td class="align-middle"><a href="">Hapus</a></td>
 								</tr>
+								@empty
+                                <tr >
+                                    <td >Data belum terisi!</td>
+                                </tr>
+								@endforelse
 							</tbody>
 						</table>
 						<!-- End Product -->

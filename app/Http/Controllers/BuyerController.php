@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cart;
 use App\Models\Address;
+use App\Models\ProductImage;
 use App\Models\Product;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -126,8 +128,34 @@ class BuyerController extends Controller
 
     public function deleteAddress($addressID) {
         Address::destroy($addressID);
-        return redirect('address')->with('status', 'Profile data successfully delete!');;
+        return redirect('address')->with('status', 'Profile data successfully delete!');
     }
     // Address
+
+    //Cart
+    public function addCart(Request $request, $productID) {
+        $product = Product::find($productID);
+        $user=auth()->user();
+
+        $cart=Cart::create([
+            "user_id" => $user->id,
+            "product_id" => $productID,
+            "quantity" => $request["quantity"],
+        ]);
+
+        return redirect()->back();
+    }
+
+    public function showCart() {
+        $userID = Auth::id();
+        $products = Product::all()->where('user_id', $userID);
+        $carts = Cart::all()->where('user_id', $userID);
+        //$product_images = ProductImage::where('product_id', $products->id);
+
+        return view('buyer.cart.index', compact('products', 'carts'));
+
+
+    }
+    //Cart
 
 }

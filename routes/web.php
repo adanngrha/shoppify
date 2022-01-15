@@ -31,11 +31,10 @@ Route::get('register', [LoginController::class, 'register'])->name('register');
 Route::post('register', [LoginController::class, 'storeRegister']);
 Route::get('detail-product/{productID}', [ProductController::class, 'detailProduct'])->name('detailProduct');
 
+
 Route::middleware('auth')->group(function() {
     Route::get('logout', [LoginController::class, 'logout']);
     Route::get('/home', [HomeController::class, 'home'])->name('home');
-
-    //Route::get('detail-product/{productID}', [ProductController::class, 'detailProduct'])->name('detailProduct');
 
     //admin
     Route::middleware('is.admin')->group(function() {
@@ -49,6 +48,8 @@ Route::middleware('auth')->group(function() {
     Route::middleware('is.buyer')->group(function() {
         Route::get('/buyer-profile', [BuyerController::class, 'profile'])->name('profile');
         Route::get('/buyer-address', [BuyerController::class, 'address'])->name('address');
+        Route::post('/detail-product/addcart/{productID}', [BuyerController::class, 'addCart']);
+        Route::get('/viewcart', [BuyerController::class, 'showCart'])->name('showCart');
 
         // Profile Routes
         Route::prefix('buyer-profile')->group(function () {
