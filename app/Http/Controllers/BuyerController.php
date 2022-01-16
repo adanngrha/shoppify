@@ -150,6 +150,7 @@ class BuyerController extends Controller
         $userID = Auth::id();
         $products = Product::all()->where('user_id', $userID);
         $carts = Cart::where('user_id', $userID)->get();
+        $count=Cart::where('user_id', $userID)->count();
 
         $product_images = [];
         $i = 0;
@@ -159,9 +160,14 @@ class BuyerController extends Controller
             $i++;
         }
 
-        return view('buyer.cart.index', compact('carts','product_images'));
+        return view('buyer.cart.index', compact('carts','product_images', 'count'));
 
 
+    }
+
+    public function deleteCart($cartID) {
+        Cart::where('id', $cartID)->delete();
+        return redirect('viewcart')->with('status', 'Profile data successfully delete!');
     }
     //Cart
 

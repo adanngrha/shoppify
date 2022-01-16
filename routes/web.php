@@ -50,6 +50,14 @@ Route::middleware('auth')->group(function() {
         Route::get('/buyer-address', [BuyerController::class, 'address'])->name('address');
         Route::post('/detail-product/addcart/{productID}', [BuyerController::class, 'addCart']);
         Route::get('/viewcart', [BuyerController::class, 'showCart'])->name('showCart');
+        Route::delete('/viewcart/{$cartID}', [BuyerController::class, 'deleteCart'])->name('deleteCart');
+
+        Route::get('/checkout', function () {
+            return view('buyer.checkout.index');
+        });
+        Route::get('/checkout/order', function () {
+            return view('buyer.checkout.order');
+        });
 
         // Profile Routes
         Route::prefix('buyer-profile')->group(function () {
