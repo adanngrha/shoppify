@@ -85,9 +85,9 @@ Route::middleware('auth')->group(function() {
             Route::get('/add-product', [SellerController::class, 'createProduct'])->name('createProduct');
             Route::post('/list-product', [SellerController::class, 'storeProduct']);
             Route::get('/list-product', [SellerController::class, 'index'])->name('index');
-            Route::get('edit/{product_id}', [SellerController::class, 'editProduct'])->name('editProduct');
-            Route::put('edit/{product_id}', [SellerController::class, 'updateProduct'])->name('updateProduct');
-            Route::get('delete/{product_id}', [SellerController::class, 'destroyProduct'])->name('destroyProduct');
+            Route::get('/edit/{product_id}', [SellerController::class, 'editProduct'])->name('editProduct');
+            Route::post('/edit/{product_id}', [SellerController::class, 'updateProduct'])->name('updateProduct');
+            Route::get('/delete/{product_id}', [SellerController::class, 'destroyProduct'])->name('destroyProduct');
         });
 
         // Orders

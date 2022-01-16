@@ -32,15 +32,14 @@
                         <div class="row">
                             <div class="col-md-8">
                                 <div class="billing-details">
-                                    <form action="{{ url('product/'.$product->id)}}" method="POST" enctype="multipart/form-data">
+                                    <form action="{{ url('/product/edit/'.$product->id)}}" method="POST" enctype="multipart/form-data">
                                         @csrf
-                                        @method('put')
                                         <table class="table table-borderless">
                                             <tr>
                                                 <td class="text-right align-middle text-gray" width="150">Nama</td>
                                                 <td class="align-middle pl-4"><input class="input" type="text"
                                                         name="name" placeholder="Nama Produk"
-                                                        value="{{ old('name') }}">
+                                                        value="{{ $product->name }}">
                                                     <div class="m-2">
                                                         <small
                                                             class="text-left text-danger"></small>
@@ -51,7 +50,7 @@
                                                 <td class="text-right align-middle text-gray">Harga </td>
                                                 <td class="align-middle pl-4"><input class="input" type="number" min="0"
                                                         name="price" placeholder="Harga"
-                                                        value="{{ old('price') }}">
+                                                        value="{{ $product->price }}">
                                                     <div class="m-2">
                                                         <small
                                                             class="text-left text-danger"></small>
@@ -62,7 +61,7 @@
                                                 <td class="text-right align-middle text-gray">Stok </td>
                                                 <td class="align-middle pl-4"><input class="input" type="number" min="0"
                                                         name="stock" placeholder="Jumlah Stok"
-                                                        value="{{ old('stock') }}">
+                                                        value="{{ $product->stock }}">
                                                     <div class="m-2">
                                                         <small
                                                             class="text-left text-danger"></small>
@@ -72,7 +71,7 @@
                                             <tr>
                                                 <td class="text-right align-middle text-gray">Deskripsi</td>
                                                 <td class="align-middle pl-4">
-                                                    <textarea name="description" id="description" class="form-control" cols="30" rows="10" placeholder="Deskripsi Barag">"{{ old('description') }}"</textarea>
+                                                    <textarea name="description" id="description" class="form-control" cols="30" rows="10" placeholder="Deskripsi Barang">{{ $product->description }}</textarea>
                                                     <div class="m-2">
                                                         <small
                                                             class="text-left text-danger"></small>
@@ -83,7 +82,7 @@
                                                 <td class="text-right align-middle text-gray">Lokasi</td>
                                                 <td class="align-middle pl-4"><input class="input" type="text"
                                                         name="location" placeholder="Nama Kota"
-                                                        value="{{ old('location') }}">
+                                                        value="{{ $product->location }}">
                                                     <div class="m-2">
                                                         <small
                                                             class="text-left text-danger"></small>
@@ -96,7 +95,7 @@
                                                     <input class="input" type="file" name="picture">
                                                     <div class="m-2">
                                                         <small
-                                                            class="text-left text-danger"></small>
+                                                            class="text-left text-danger">Biarkan kosong jika gambar tidak ingin diubah!</small>
                                                     </div>
                                                 </td>
                                             </tr>
@@ -105,7 +104,7 @@
                                             <tr>
                                                 <td></td>
                                                 <td class="align-middle pl-4"><button class="primary-btn" name="save"
-                                                        type="submit">Tambah</button></td>
+                                                        type="submit">Edit</button></td>
                                             </tr>
                                         </table>
                                     </form>
