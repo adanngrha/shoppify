@@ -149,12 +149,25 @@ class BuyerController extends Controller
     public function showCart() {
         $userID = Auth::id();
         $products = Product::all()->where('user_id', $userID);
-        $carts = Cart::all()->where('user_id', $userID);
-        //$product_images = ProductImage::where('product_id', $products->id);
+        $carts = Cart::where('user_id', $userID)->get();
+        $count=Cart::where('user_id', $userID)->count();
 
-        return view('buyer.cart.index', compact('products', 'carts'));
+        $product_images = [];
+        $i = 0;
+        foreach ($products as $product) {
+            $product_image = ProductImage::where('product_id', $product->id)->first();
+            $product_images[$i] = $product_image->picture;
+            $i++;
+        }
+
+        return view('buyer.cart.index', compact('carts','product_images', 'count'));
 
 
+    }
+
+    public function deleteCart($cartID) {
+        Cart::where('id', $cartID)->delete();
+        return redirect('viewcart')->with('status', 'Profile data successfully delete!');
     }
     //Cart
 
