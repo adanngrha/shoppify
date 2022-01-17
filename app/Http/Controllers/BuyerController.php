@@ -80,7 +80,7 @@ class BuyerController extends Controller
     public function address() {
         $userID = Auth::id();
         $addresses = Address::all()->where('user_id', $userID);
-        return view('buyer.address.index', compact('addresses'));
+        return view('buyer.address.index', compact('addresses', 'userID'));
     }
 
     public function addAddress(Request $request) {
@@ -129,6 +129,20 @@ class BuyerController extends Controller
     public function deleteAddress($addressID) {
         Address::destroy($addressID);
         return redirect('buyer-address')->with('status', 'Profile data successfully delete!');
+    }
+
+    public function utama($user_id, $address_id) {
+        $address = Address::all()->where('user_id', $user_id);
+        $address->each(function ($utama) {
+            $utama->update([
+                'utama'=>'0',
+            ]);
+        });
+        $choosen_address = Address::where('id', $address_id)->first();
+        $choosen_address->update([
+            'utama' => '1',
+        ]);
+        return redirect('buyer-address');
     }
     // Address
 
