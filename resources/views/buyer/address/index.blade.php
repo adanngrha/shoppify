@@ -53,9 +53,13 @@
                                 <table class="table table-borderless">
                                     <tr>
                                         <td width="110" class="text-gray text-right">Nama Kamu</td>
-                                        <td><b>{{ $address->full_name }}</b> <span class="label-new">Utama</span></td>
-                                        <td class="align-bottom" width="90" rowspan="2"><a href="{{ url('address/show-address/'.$address->id) }}"><i class="fa fa-fw fa-pencil-square-o"></i> Ubah</a></td>
-                                        <td class="align-bottom" width="90" rowspan="2"><a href="{{ url('address/delete-address/'.$address->id) }}"><i class="fa fa-fw fa-trash-o"></i> Hapus</a></td>
+                                        <td><b>{{ $address->full_name }}</b>
+                                            @if ( $address->utama == '1')
+                                                <span class="label-new">Utama</span>
+                                            @endif
+                                        </td>
+                                        <td class="align-bottom" width="90" rowspan="2"><a href="{{ url('buyer-address/show-address/'.$address->id) }}"><i class="fa fa-fw fa-pencil-square-o"></i> Ubah</a></td>
+                                        <td class="align-bottom" width="90" rowspan="2"><a href="{{ url('buyer-address/delete-address/'.$address->id) }}"><i class="fa fa-fw fa-trash-o"></i> Hapus</a></td>
                                     </tr>
                                     <tr>
                                         <td class="text-gray text-right">Telepon</td>
@@ -68,7 +72,7 @@
                                         {{ $address->province }} <br>
                                         {{ $address->postal_code }} <br>
                                         </td>
-                                        <td colspan="2"><button disabled>Atur Sebagai Utama</button></td>
+                                        <td colspan="2"><button><a href="{{ url('/buyer-address/utama/'.$userID.'/'.$address->id) }}">Atur Sebagai Utama</a></button></td>
                                     </tr>
                                 </table>
                                 <!-- End Address -->

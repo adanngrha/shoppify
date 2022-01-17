@@ -11,7 +11,7 @@ use App\Models\Product;
 use App\Models\ProductImage;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use League\Flysystem\File;
+use Illuminate\Support\Facades\Storage;
 
 
 class SellerController extends Controller
@@ -142,10 +142,10 @@ class SellerController extends Controller
     }
 
     public function editProduct($id) {
-        $product = Product::find($id);
-        $product_image = ProductImage::find('product_id', $product->id)->first();
+        $product = Product::where('id', $id)->first();
+        $product_image = ProductImage::where('product_id', $product->id)->first();
 
-        return view('seller.product.edit_product',compact('product', 'product_image'));
+        return view('seller.product.edit_product', compact('product', 'product_image'));
     }
 
     public function updateProduct($id, Request $request) {
@@ -155,16 +155,16 @@ class SellerController extends Controller
             'stock' => 'required',
             'description' => 'required',
             'location' => 'required',
-            'picture' => 'required|mimes:jpeg,jpg,png|max:2200'
+            'picture' => 'mimes:jpeg,jpg,png|max:2200'
         ]);
 
         $product = Product::findorfail($id);
-        
+
         $product_id=$product->id;
         $product_image = ProductImage::findorfail($product_id);
 
         if ($request->has('picture')) {
-            File::delete("img-product-upload/".$product_image->picture);
+            Storage::delete("img-product-upload/".$product_image->picture);
             $picture = $request->picture;
             $new_picture = time() . ' - ' . $picture->getClientOriginalName();
             $picture->move('img-product-upload/', $new_picture);
@@ -175,9 +175,11 @@ class SellerController extends Controller
                 "description" => $request["description"],
                 "location" => $request["location"],
             ];
-                $product_img_data = [
-                    'picture' => $new_picture,
-                ];
+            $product_img_data = [
+                'picture' => $new_picture,
+            ];
+            $product->update($product_data);
+            $product_image->update($product_img_data);
         } else {
             $product_data = [
                 "name" => $request["name"],
@@ -186,15 +188,15 @@ class SellerController extends Controller
                 "description" => $request["description"],
                 "location" => $request["location"],
             ];
+            $product->update($product_data);
         }
 
-        $product->update($product_data);
-        $product_image->update($product_img_data);
+
 
         return redirect('/product/list-product')->with('success', 'Data product successfully updated!');
     }
 
-    public function destroyProdcut($id) {
+    public function destroyProduct($id) {
         $product = Product::find($id);
         $product_id=$product->id;
         ProductImage::destroy($id);

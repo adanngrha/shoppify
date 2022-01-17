@@ -81,6 +81,7 @@ Route::middleware('auth')->group(function() {
             Route::get('show-address/{addressID}', [BuyerController::class, 'showAddress'])->name('showAddress');
             Route::post('edit-address/{addressID}', [BuyerController::class, 'editAddress'])->name('editAddress');
             Route::get('delete-address/{addressID}', [BuyerController::class, 'deleteAddress'])->name('deleteAddress');
+            Route::get('utama/{user_id}/{address_id}', [BuyerController::class, 'utama'])->name('utama');
         });
 
     });
@@ -93,9 +94,9 @@ Route::middleware('auth')->group(function() {
             Route::get('/add-product', [SellerController::class, 'createProduct'])->name('createProduct');
             Route::post('/list-product', [SellerController::class, 'storeProduct']);
             Route::get('/list-product', [SellerController::class, 'index'])->name('index');
-            Route::get('edit/{product_id}', [SellerController::class, 'editProduct'])->name('editProduct');
-            Route::put('edit/{product_id}', [SellerController::class, 'updateProduct'])->name('updateProduct');
-            Route::get('delete/{product_id}', [SellerController::class, 'destroyProduct'])->name('destroyProduct');
+            Route::get('/edit/{product_id}', [SellerController::class, 'editProduct'])->name('editProduct');
+            Route::post('/edit/{product_id}', [SellerController::class, 'updateProduct'])->name('updateProduct');
+            Route::get('/delete/{product_id}', [SellerController::class, 'destroyProduct'])->name('destroyProduct');
         });
 
         // Orders

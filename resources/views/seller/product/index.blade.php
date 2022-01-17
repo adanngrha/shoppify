@@ -72,13 +72,9 @@
                                 <td class="align-middle">Rp{{ $product->price }}</td>
                                 <td class="align-middle">{{ $product->location }}</td>
                                 <td class="align-middle">
-                                    <form action="/product/{{$product->id}}" method="POST">
-                                        <a class="mr-3" href="/product/{{$product->id}}"><i class="fa fa-fw fa-pencil-square-o"></i> Ubah</a>
-                                        @csrf
-                                        @method('DELETE')
-                                        <a href="/product/{{$product->id}}" onclick="return confirm('Anda yakin ingin menghapus?')"><i class="fa fa-fw fa-trash-o"></i> Hapus</a>
-                                    </td>
-                                    </form>
+                                    <a class="mr-3" href="{{ url('/product/edit/'.$product->id) }}"><i class="fa fa-fw fa-pencil-square-o"></i> Ubah</a>
+                                    <a href="{{ url('/product/delete/'.$product->id) }}" onclick="return confirm('Anda yakin ingin menghapus?')"><i class="fa fa-fw fa-trash-o"></i> Hapus</a>
+                                </td>
                             </tr>
                             <?php $i++ ?>
                             @empty
