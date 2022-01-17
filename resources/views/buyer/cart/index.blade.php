@@ -64,7 +64,7 @@
 								<form action="/viewcart/{{$cart->id}}" method="POST">
 									@csrf
                                     @method('DELETE')
-                                		<td class="align-middle"><input type="submit" class="btn btn-danger my-1" onclick="return confirm('Are you sure?')" value="Hapus"></td>
+										<td class="align-middle"><input type="submit" class="btn btn-danger my-1" onclick="return confirm('Are you sure?')" value="Hapus"></td>
 								</form>
                             </tr>
                             <?php $total+=$p; $i++;  ?>
