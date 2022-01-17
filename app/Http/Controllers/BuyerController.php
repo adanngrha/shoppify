@@ -79,7 +79,7 @@ class BuyerController extends Controller
     // Address
     public function address() {
         $userID = Auth::id();
-        $addresses = Address::all()->where('user_id', $userID);
+        $addresses = Address::all()->where('user_id', $userID)->sortByDesc('utama');
         return view('buyer.address.index', compact('addresses', 'userID'));
     }
 
