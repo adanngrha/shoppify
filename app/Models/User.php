@@ -45,15 +45,20 @@ class User extends Authenticatable
     ];
 
     public function address() {
-        return $this->hasMany(Address::class);
+        return $this->hasMany(Address::class, 'user_id');
     }
 
     public function product() {
-        return $this->hasMany(Product::class);
+        return $this->hasMany(Product::class, 'user_id');
     }
 
     public function carts()
     {
         return $this->hasMany(Cart::class, 'user_id');
+    }
+
+    public function order()
+    {
+        return $this->hasMany(Order::class, 'buyer_id');
     }
 }

@@ -57,7 +57,7 @@
                                             <tr>
                                                 <td class="text-right align-middle text-gray">Nama</td>
                                                 <td class="align-middle pl-4"><input class="input" type="text"
-                                                        name="full_name" placeholder="Name" valua="{{ $user_profile->full_name }}">
+                                                        name="full_name" placeholder="Name" value="{{ $user_profile->full_name }}">
                                                     @error('full_name')
                                                         <div class="m-2">
                                                             <small class="text-left text-danger">{{$message}}</small>

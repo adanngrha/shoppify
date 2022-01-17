@@ -35,7 +35,7 @@ class BuyerController extends Controller
             'phone_number' => $request->phone_number,
             'gender' => $request->gender,
         ]);
-        return redirect('/profile')->with('status', 'Profile data successfully update!');
+        return redirect('/buyer-profile')->with('status', 'Profile data successfully update!');
     }
 
     public function editEmail(Request $request) {
@@ -52,7 +52,7 @@ class BuyerController extends Controller
             ]);
             return redirect('profile');
         } else {
-            return redirect('profile/change-email');
+            return redirect('buyer-profile/change-email');
         }
     }
 
@@ -71,7 +71,7 @@ class BuyerController extends Controller
             ]);
             return redirect('profile');
         } else {
-            return redirect('profile/change-password');
+            return redirect('buyer-profile/change-password');
         }
     }
     // Profile
@@ -103,7 +103,7 @@ class BuyerController extends Controller
             'province' => $request->province,
             'postal_code' => $request->postal_code,
         ]);
-        return redirect('address')->with('status', 'Profile data successfully add!');
+        return redirect('buyer-address')->with('status', 'Profile data successfully add!');
     }
 
     public function showAddress(Request $request, $addressID) {
@@ -123,12 +123,12 @@ class BuyerController extends Controller
         ]);
         $input = $request->all();
         $address->update($input);
-        return redirect('address')->with('status', 'Profile data successfully update!');;
+        return redirect('buyer-address')->with('status', 'Profile data successfully update!');;
     }
 
     public function deleteAddress($addressID) {
         Address::destroy($addressID);
-        return redirect('address')->with('status', 'Profile data successfully delete!');
+        return redirect('buyer-address')->with('status', 'Profile data successfully delete!');
     }
     // Address
 

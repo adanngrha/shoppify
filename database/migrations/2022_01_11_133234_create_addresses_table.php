@@ -22,6 +22,7 @@ class CreateAddressesTable extends Migration
             $table->string('city');
             $table->string('province');
             $table->string('postal_code');
+            $table->enum('utama', ['0','1'])->default('0');
             $table->timestamps();
         });
     }
