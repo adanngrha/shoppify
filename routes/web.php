@@ -51,6 +51,7 @@ Route::middleware('auth')->group(function() {
         Route::post('/detail-product/addcart/{productID}', [BuyerController::class, 'addCart']);
         Route::get('/viewcart', [BuyerController::class, 'showCart'])->name('showCart');
         Route::delete('/viewcart/{cartID}', [BuyerController::class, 'deleteCart'])->name('deleteCart');
+        Route::post('/viewcart/edit/{cartID}', [BuyerController::class, 'editCart'])->name('editCart');
 
         Route::get('/checkout', function () {
             return view('buyer.checkout.index');
