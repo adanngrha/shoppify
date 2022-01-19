@@ -183,6 +183,13 @@ class BuyerController extends Controller
         Cart::where('id', $cartID)->delete();
         return redirect('viewcart')->with('status', 'Profile data successfully delete!');
     }
+
+    public function editCart(Request $request, $cartID) {
+        $cart = Cart::where('id', $cartID)->first();
+        $input = $request->all();
+        $cart->update($input);
+        return redirect()->back()->with('status', 'Data cart successfully update!');;
+    }
     //Cart
 
 }

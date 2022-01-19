@@ -61,10 +61,14 @@
                                     </div>
                                 </td>
                                 <td class="align-middle">Rp{{$p = $pr * $qty}}</td>
+                                <form action="/viewcart/edit/{{$cart->id}}" method="POST">
+                                    @csrf
+                                    <td class="align-middle"><input type="submit" class="btn btn-outline-danger my-1" value="Update">
+                                </form>
 								<form action="/viewcart/{{$cart->id}}" method="POST">
 									@csrf
                                     @method('DELETE')
-                                		<td class="align-middle"><input type="submit" class="btn btn-danger my-1" onclick="return confirm('Are you sure?')" value="Hapus"></td>
+										<input type="submit" class="btn btn-danger my-1" onclick="return confirm('Are you sure?')" value="Hapus"></td>
 								</form>
                             </tr>
                             <?php $total+=$p; $i++;  ?>
@@ -83,7 +87,7 @@
                             </tr>
                         </table>
                         <div class="d-flex flex-row align-items-center">
-                            <a href="" class="primary-btn-o mx-2">Update</a>
+                            {{-- <a href="" class="primary-btn-o mx-2">Update</a> --}}
                             <a href="/checkout" class="primary-btn mx-2">Checkout</a>
                         </div>
                     </div>
