@@ -37,7 +37,7 @@ class SellerController extends Controller
             'phone_number' => $request->phone_number,
             'gender' => $request->gender,
         ]);
-        return redirect('/profile')->with('status', 'Profile data successfully update!');
+        return redirect('/seller-profile')->with('status', 'Profile data successfully update!');
     }
 
     public function editEmail(Request $request) {
@@ -52,9 +52,9 @@ class SellerController extends Controller
             $user->update([
                 'email' => $request->new_email,
             ]);
-            return redirect('profile');
+            return redirect('seller-profile');
         } else {
-            return redirect('profile/change-email');
+            return redirect('seller-profile/change-email');
         }
     }
 
@@ -73,7 +73,7 @@ class SellerController extends Controller
             ]);
             return redirect('profile');
         } else {
-            return redirect('profile/change-password');
+            return redirect('seller-profile/change-password');
         }
     }
     // Profile

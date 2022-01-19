@@ -17,9 +17,9 @@
                     <h3>Checkout</h3>
                     <hr>
                     <h4><i class="fas fa-fw fa-map-marker-alt text-primary"></i> Alamat Pengiriman</h4>
-                    <p>Naufal Anshor A</p>
-                    <p>089698948976 <br>
-                        GEMPOL, NO 20, RT 01/RW 11, CONDONGCATUR, KAB. SLEMAN, DEPOK, DI YOGYAKARTA, ID, 55283</p>
+                    <p>{{ $profile->full_name }}</p>
+                    <p>{{ $profile->phone_number }} <br>
+                        {{ $address->address_name }}, {{ $address->city }}, {{ $address->province }}, {{ $address->postal_code }}</p>
                     <hr>
                     <h4><i class="fas fa-fw fa-receipt text-primary"></i> Produk Dipesan</h4>
 
@@ -34,22 +34,26 @@
                         </thead>
                         <tbody>
                             <!-- Product -->
+                            <?php $i = 0; $total=0?>
+                            @foreach ($carts as $key => $cart)
                             <tr class="text-center">
-                                <td width="50">
-                                    <a href="order-details.html" class="no-hover">
-                                        <img src="./img/product01.png" width="50" alt="">
-                                    </a>
-                                </td>
-                                <td class="align-middle text-left" width="400">Judul Produk</td>
-                                <td class="align-middle"><del class="text-gray mr-2">Rp10.000.000</del> Rp9.000.000</td>
-                                <td class="align-middle">
-                                    1
-                                </td>
-                                <td class="align-middle text-right">Rp9.000.000</td>
+                                    <td width="50">
+                                        <a href="order-details.html" class="no-hover">
+                                            <img src="./img/product01.png" width="50" alt="">
+                                        </a>
+                                    </td>
+                                    <td class="align-middle text-left" width="400">{{ $cart->products->name }}</td>
+                                    <td class="align-middle">Rp{{ $pr=$cart->products->price }}</td>
+                                    <td class="align-middle">
+                                        {{ $qty=$cart->quantity}}
+                                    </td>
+                                    <td class="align-middle text-right">Rp{{ $p=$pr*$qty }}</td>
                             </tr>
+                            <?php $total+=$p; $i++;  ?>
+                            @endforeach
                             <!-- End Product -->
                             <tr>
-                                <td class="align-middle">Pesan :</td>
+                                <td class="align-middle">Pesan:</td>
                                 <td class="align-middle">
                                     <input class="input" type="text" name="message"
                                         placeholder="(Opsional) Tinggalkan pesan kepada penjual">
@@ -58,9 +62,17 @@
                                 <td class="align-middle text-center">
                                     <select class="input-select">
                                         <option>Pilih Kurir</option>
+                                        @foreach ($couriers as $courier)
+                                            <option name="courier" value="{{ $courier->name }}">{{ $courier->name }}</option>
+                                        @endforeach
                                     </select>
                                     <select class="input-select">
                                         <option>Pilih Servis</option>
+                                        {{-- @foreach ($couriers as $courier)
+                                            @if(id=="1")
+
+                                            @endif
+                                        @endforeach --}}
                                     </select>
                                 </td>
                                 <td class="align-middle text-right">Rp20.000</td>
@@ -171,7 +183,7 @@
                             <tr class="text-gray">
                                 <td class="align-middle text-right">Subtotal Produk :</td>
                                 <td class="align-middle text-right" width="200">
-                                    <p class="d-inline-block m-0">Rp9.000.000</p>
+                                    <p class="d-inline-block m-0">Rp{{ $total }}</p>
                                 </td>
                             </tr>
                             <tr class="text-gray">

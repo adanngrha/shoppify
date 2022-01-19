@@ -4,11 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\Cart;
 use App\Models\Address;
+use App\Models\Courier;
 use App\Models\ProductImage;
 use App\Models\Product;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\Profile;
+use App\Models\Service;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
@@ -50,7 +52,7 @@ class BuyerController extends Controller
             $user->update([
                 'email' => $request->new_email,
             ]);
-            return redirect('profile');
+            return redirect('buyer-profile');
         } else {
             return redirect('buyer-profile/change-email');
         }
@@ -69,7 +71,7 @@ class BuyerController extends Controller
             $user->update([
                 'password' => Hash::make($request->new_password),
             ]);
-            return redirect('profile');
+            return redirect('buyer-profile');
         } else {
             return redirect('buyer-profile/change-password');
         }
@@ -176,7 +178,6 @@ class BuyerController extends Controller
 
         return view('buyer.cart.index', compact('carts','product_images', 'count'));
 
-
     }
 
     public function deleteCart($cartID) {
@@ -192,4 +193,26 @@ class BuyerController extends Controller
     }
     //Cart
 
+    // Checkout
+
+    public function checkout () {
+
+        // Alamat Pengiriman
+        $user_id = Auth::id();
+        $profile = Profile::where('user_id', $user_id)->first();
+        $address = Address::where('user_id', $user_id)->where('utama', '1')->first();
+
+        // Item Dipesan
+        $carts = Cart::where('user_id', $user_id)->get();
+        $count = Cart::where('user_id', $user_id)->count();
+
+        // Kurir dan Service
+        $couriers = Courier::all();
+
+        return view('buyer.checkout.index', compact('profile', 'address', 'carts', 'couriers'));
+
+    }
+    // Checkout
+
 }
+

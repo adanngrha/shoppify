@@ -9,7 +9,6 @@ class Service extends Model
 {
     use HasFactory;
     protected $table = 'services';
-    protected $guarded = ['id'];
 
     public function courier () {
         return $this->belongsTo(Courier::class, 'courier_id');

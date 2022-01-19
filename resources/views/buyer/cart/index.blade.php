@@ -43,12 +43,12 @@
                             <tr class="hr text-center">
                                 <td width="60">
                                     <a href="order-details.html" class="no-hover">
-                                        {{-- <img src="{{ url('img-product-upload/'.$product_images[$i]) }}" width="100"
-                                        alt=""> --}}
+                                        <img src="{{ url('img-product-upload/'.$product_images[$i]) }}" width="100"
+                                        alt="">
                                     </a>
                                 </td>
-                                <td class="pt-5 text-left" width="400">{{$cart->products->name}}</td>
-                                <td class="align-middle">Rp{{$pr=$cart->products->price}}</td>
+                                <td class="pt-5 text-left" width="400">{{ $cart->products->name }}</td>
+                                <td class="align-middle">Rp{{ $pr=$cart->products->price }}</td>
                                 <td class="align-middle" width="100">
                                     <div class="add-to-cart">
                                         <div class="qty-label">

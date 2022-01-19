@@ -53,9 +53,7 @@ Route::middleware('auth')->group(function() {
         Route::delete('/viewcart/{cartID}', [BuyerController::class, 'deleteCart'])->name('deleteCart');
         Route::post('/viewcart/edit/{cartID}', [BuyerController::class, 'editCart'])->name('editCart');
 
-        Route::get('/checkout', function () {
-            return view('buyer.checkout.index');
-        });
+        Route::get('/checkout', [BuyerController::class, 'checkout'])->name('checkout');
         Route::get('/checkout/order', function () {
             return view('buyer.checkout.order');
         });
@@ -83,6 +81,11 @@ Route::middleware('auth')->group(function() {
             Route::post('edit-address/{addressID}', [BuyerController::class, 'editAddress'])->name('editAddress');
             Route::get('delete-address/{addressID}', [BuyerController::class, 'deleteAddress'])->name('deleteAddress');
             Route::get('utama/{user_id}/{address_id}', [BuyerController::class, 'utama'])->name('utama');
+        });
+
+        // Checkout Routes
+        Route::prefix('checkout')->group(function () {
+
         });
 
     });
