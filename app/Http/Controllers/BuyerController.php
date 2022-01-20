@@ -208,8 +208,9 @@ class BuyerController extends Controller
 
         // Kurir dan Service
         $couriers = Courier::all();
+        $services = Service::all();
 
-        return view('buyer.checkout.index', compact('profile', 'address', 'carts', 'couriers'));
+        return view('buyer.checkout.index', compact('profile', 'address', 'carts', 'couriers', 'services'));
 
     }
     // Checkout

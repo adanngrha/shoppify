@@ -60,14 +60,20 @@
                                 </td>
                                 <td class="align-middle text-right text-gray">Opsi Pengiriman :</td>
                                 <td class="align-middle text-center">
-                                    <select class="input-select">
+                                    <select class="input-select" name="courier">
                                         <option>Pilih Kurir</option>
                                         @foreach ($couriers as $courier)
-                                            <option name="courier" value="{{ $courier->name }}">{{ $courier->name }}</option>
+                                            <option name="courier" value="{{ $courier->id }}">{{ $courier->name }}</option>
                                         @endforeach
                                     </select>
                                     <select class="input-select">
-                                        <option>Pilih Servis</option>
+                                        @if ($courier->id == 1)
+                                            <option value="{{ $couriers->service()->id }}">{{ $couriers->service()->name }}</option>
+                                        @elseif ($courier->id == 2)
+                                            <option value="{{ $couriers->service()->name }}">{{ $couriers->service()->name }}</option>
+                                        @else
+                                            <option>Pilih Service</option>
+                                        @endif
                                         {{-- @foreach ($couriers as $courier)
                                             @if(id=="1")
 
