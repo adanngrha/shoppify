@@ -43,8 +43,7 @@
                             <tr class="hr text-center">
                                 <td width="60">
                                     <a href="order-details.html" class="no-hover">
-                                        <img src="{{ url('img-product-upload/'.$product_images[$i]) }}" width="100"
-                                        alt="">
+                                        {{-- <img src="{{ url('img-product-upload/'.$product_images[$i]) }}" width="100" alt="">--}}
                                     </a>
                                 </td>
                                 <td class="pt-5 text-left" width="400">{{ $cart->products->name }}</td>
@@ -63,7 +62,7 @@
                                 <td class="align-middle">Rp{{$p = $pr * $qty}}</td>
                                 <form action="/viewcart/edit/{{$cart->id}}" method="POST">
                                     @csrf
-                                    <td class="align-middle"><input type="submit" class="btn btn-outline-danger my-1" value="Update">
+                                    <td class="align-middle">{{-- <input type="submit" class="btn btn-outline-danger my-1" value="Update"> --}}
                                 </form>
 								<form action="/viewcart/{{$cart->id}}" method="POST">
 									@csrf

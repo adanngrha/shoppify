@@ -3,11 +3,11 @@
     <!-- TOP HEADER -->
     <div id="top-header">
         <div class="container">
-            <ul class="header-links pull-left">
+            {{-- <ul class="header-links pull-left">
                 <li><a href="#"><i class="fa fa-phone"></i> +021-95-51-84</a></li>
                 <li><a href="#"><i class="fa fa-envelope-o"></i> email@email.com</a></li>
                 <li><a href="#"><i class="fa fa-map-marker"></i> 1734 Stonecoal Road</a></li>
-            </ul>
+            </ul> --}}
             <ul class="header-links pull-right">
                 @if (Route::has('login'))
                     @auth
@@ -81,8 +81,22 @@
                         <!-- /Wishlist --> --}}
 
                         <!-- Cart -->
-                        <div class="dropdown">
-                            <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+                        @if (Route::has('login'))
+                            @auth
+                                @if (Auth::user()->hasRole('buyer'))
+                                <div class="dropdown">
+                                    <a class="dropdown-toggle" href="/viewcart">
+                                        <i class="fa fa-shopping-cart"></i>
+                                        <span>Your Cart</span>
+                                        <div class="qty">3</div>
+                                    </a>
+                                </div>
+                                @endif
+                            @endauth
+                        @endif
+                
+                        {{-- <div class="dropdown">
+                            <a class="dropdown-toggle" href="/viewcart">
                                 <i class="fa fa-shopping-cart"></i>
                                 <span>Your Cart</span>
                                 <div class="qty">3</div>
@@ -109,7 +123,7 @@
                                     <a href="/checkout">Checkout <i class="fa fa-arrow-circle-right"></i></a>
                                 </div>
                             </div>
-                        </div>
+                        </div> --}}
                         <!-- /Cart -->
 
                         <!-- Menu Toogle -->
