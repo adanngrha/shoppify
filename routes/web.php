@@ -54,9 +54,7 @@ Route::middleware('auth')->group(function() {
         Route::post('/viewcart/edit/{cartID}', [BuyerController::class, 'editCart'])->name('editCart');
 
         Route::get('/checkout', [BuyerController::class, 'checkout'])->name('checkout');
-        Route::get('/checkout/order', function () {
-            return view('buyer.checkout.order');
-        });
+        Route::post('/checkout/order', [BuyerController::class, 'order'])->name('order');
 
         // Profile Routes
         Route::prefix('buyer-profile')->group(function () {

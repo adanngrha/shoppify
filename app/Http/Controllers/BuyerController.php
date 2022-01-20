@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Order;
+use App\Models\PaymentMethod;
 use App\Models\Cart;
 use App\Models\Address;
 use App\Models\Courier;
@@ -195,7 +197,7 @@ class BuyerController extends Controller
 
     // Checkout
 
-    public function checkout () {
+    public function checkout() {
 
         // Alamat Pengiriman
         $user_id = Auth::id();
@@ -209,9 +211,30 @@ class BuyerController extends Controller
         // Kurir dan Service
         $couriers = Courier::all();
         $services = Service::all();
+        $payments = PaymentMethod::all();
 
-        return view('buyer.checkout.index', compact('profile', 'address', 'carts', 'couriers', 'services'));
+        return view('buyer.checkout.index', compact('profile', 'address', 'carts', 'couriers', 'services', 'payments'));
 
+    }
+
+    public function order(Request $request) {
+        $order=Order::create([
+            "buyer_id" => $request["buyer_id"],
+            "address_id" => $request["address_id"],
+            "courier_id" => $request["courier"],
+            "service_id" => 1,
+            "payment_method_id" => $request["payment"],
+            "message" => $request["message"],
+            "total" => $request["total"],
+        ]);
+
+        $paymentID=$order->payment_method_id;
+        $payment=PaymentMethod::where('id',$paymentID)->first();
+
+        $total=$order->total;
+
+
+        return view('buyer.checkout.order', compact('payment','total'));
     }
     // Checkout
 

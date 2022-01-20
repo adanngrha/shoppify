@@ -13,16 +13,20 @@
         <div class="container">
             <!-- row -->
             <div class="row">
+                <form action="{{ url('checkout/order') }}" method="POST" enctype="multipart/form-data">
+                @csrf
                 <div id="my-profile">
                     <h3>Checkout</h3>
                     <hr>
                     <h4><i class="fas fa-fw fa-map-marker-alt text-primary"></i> Alamat Pengiriman</h4>
+                    <input type="hidden" name="buyer_id" value="{{$profile->user_id}}">
+                    <input type="hidden" name="address_id" value="{{$address->id}}">
                     <p>{{ $profile->full_name }}</p>
                     <p>{{ $profile->phone_number }} <br>
                         {{ $address->address_name }}, {{ $address->city }}, {{ $address->province }}, {{ $address->postal_code }}</p>
                     <hr>
                     <h4><i class="fas fa-fw fa-receipt text-primary"></i> Produk Dipesan</h4>
-
+        
                     <table class="table table-borderless">
                         <thead>
                             <tr class="text-center">
@@ -66,7 +70,7 @@
                                             <option name="courier" value="{{ $courier->id }}">{{ $courier->name }}</option>
                                         @endforeach
                                     </select>
-                                    <select class="input-select">
+                                    {{-- <select class="input-select">
                                         @if ($courier->id == 1)
                                             <option value="{{ $couriers->service()->id }}">{{ $couriers->service()->name }}</option>
                                         @elseif ($courier->id == 2)
@@ -78,10 +82,10 @@
                                             @if(id=="1")
 
                                             @endif
-                                        @endforeach --}}
-                                    </select>
+                                        @endforeach 
+                                    </select> --}}
                                 </td>
-                                <td class="align-middle text-right">Rp20.000</td>
+                                <td class="align-middle text-right">Rp20000</td>
                             </tr>
                             <tr>
                                 <td></td>
@@ -97,44 +101,34 @@
                     <h4><i class="fas fa-fw fa-university text-primary"></i> Metode Pembayaran</h4>
                     <br>
                     <div class="d-flex payment-method">
+                        @foreach ($payments as $payment)
                         <div class="input-radio">
-                            <input type="radio" name="payment" id="payment-1">
-                            <label for="payment-1">
+                            <input type="radio" name="payment" id="payment{{$payment->id}}" value="{{$payment->id}}">
+                            <label for="payment{{$payment->id}}">
                                 <span></span>
-                                Transfer Bank
+                                {{$payment->name}}
+                                <b>{{$payment->account_number}}</b>
                             </label>
-                            <div class="caption p-1">
+                        </div>
+                        @endforeach
+                            {{-- <div class="caption p-1">
                                 <p>Untuk melakukan transfer silakan pilih salah satu bank dibawah dan simpan bukti
                                     transfer untuk dicek manual oleh Admin. Terimakasih</p>
-                                <div class="d-flex flex-row align-items-center my-4">
-                                    <div class="d-flex flex-col">
-                                        <img class="text-left" src="./img/payment/bca.png" width="100">
+                                @foreach ($payments as $payment)
+                                    <div class="d-flex flex-row align-items-center my-4">
+                                        {{-- <div class="d-flex flex-col">
+                                            <img class="text-left" src="./img/payment/bca.png" width="100">
+                                        </div> 
+                                        <div class="d-flex flex-col ml-3">
+                                            @if ($payment->id<4)
+                                            <p>{{$payment->name}}</p>
+                                            <b>{{$payment->account_number}}</b>
+                                            @endif
+                                        </div>
                                     </div>
-                                    <div class="d-flex flex-col ml-3">
-                                        PT Electro.
-                                        <b>170819452021</b>
-                                    </div>
-                                </div>
-                                <div class="d-flex flex-row align-items-center my-4">
-                                    <div class="d-flex flex-col">
-                                        <img class="text-left" src="./img/payment/bri.png" width="100">
-                                    </div>
-                                    <div class="d-flex flex-col ml-3">
-                                        PT Electro.
-                                        <b>7675170819452021</b>
-                                    </div>
-                                </div>
-                                <div class="d-flex flex-row align-items-center my-4">
-                                    <div class="d-flex flex-col">
-                                        <img class="text-left" src="./img/payment/mandiri.png" width="100">
-                                    </div>
-                                    <div class="d-flex flex-col ml-3">
-                                        PT Electro.
-                                        <b>103000170819452021</b>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                                @endforeach
+                            </div> --}}
+                        {{-- </div>
                         <div class="input-radio">
                             <input type="radio" name="payment" id="payment-2">
                             <label for="payment-2">
@@ -144,45 +138,22 @@
                             <div class="caption p-1">
                                 <p>Untuk melakukan transfer silakan pilih salah satu dompet digital dibawah dan simpan
                                     bukti transfer untuk dicek manual oleh Admin. Terimakasih</p>
-                                <div class="d-flex flex-row align-items-center my-4">
-                                    <div class="d-flex flex-col">
-                                        <img class="text-left" src="./img/payment/gopay.png" width="100">
+                                    @foreach ($payments as $payment)
+                                    <div class="d-flex flex-row align-items-center my-4">
+                                        {{-- <div class="d-flex flex-col">
+                                            <img class="text-left" src="./img/payment/bca.png" width="100">
+                                        </div> 
+                                        <div class="d-flex flex-col ml-3">
+                                            @if ($payment->id>3)
+                                            <p>{{$payment->name}}</p>
+                                            <b>{{$payment->account_number}}</b>
+                                            @endif
+                                        </div>
                                     </div>
-                                    <div class="d-flex flex-col ml-3">
-                                        PT Electro.
-                                        <b>170819452021</b>
-                                    </div>
-                                </div>
-                                <div class="d-flex flex-row align-items-center my-4">
-                                    <div class="d-flex flex-col">
-                                        <img class="text-left" src="./img/payment/dana.png" width="100">
-                                    </div>
-                                    <div class="d-flex flex-col ml-3">
-                                        PT Electro.
-                                        <b>170819452021</b>
-                                    </div>
-                                </div>
-                                <div class="d-flex flex-row align-items-center my-4">
-                                    <div class="d-flex flex-col">
-                                        <img class="text-left" src="./img/payment/ovo.png" width="100">
-                                    </div>
-                                    <div class="d-flex flex-col ml-3">
-                                        PT Electro.
-                                        <b>170819452021</b>
-                                    </div>
-                                </div>
-                                <div class="d-flex flex-row align-items-center my-4">
-                                    <div class="d-flex flex-col">
-                                        <img class="text-left" src="./img/payment/shopeepay.png" width="100">
-                                    </div>
-                                    <div class="d-flex flex-col ml-3">
-                                        PT Electro.
-                                        <b>170819452021</b>
-                                    </div>
-                                </div>
+                                @endforeach
                             </div>
-                        </div>
-                    </div>
+                        </div> --}}
+                    
                     <hr>
                     <div class="d-flex flex-col align-items-end mt-4">
                         <table class="table table-borderless">
@@ -195,20 +166,22 @@
                             <tr class="text-gray">
                                 <td class="align-middle text-right">Total Ongkos Kirim :</td>
                                 <td class="align-middle text-right" width="200">
-                                    <p class="d-inline-block m-0">Rp20.000</p>
+                                    <p class="d-inline-block m-0">Rp20000</p>
                                 </td>
                             </tr>
                             <tr>
                                 <td class="align-middle text-right">Total Pembayaran :</td>
                                 <td class="align-middle text-right" width="200">
-                                    <h3 class="d-inline-block text-primary m-0">Rp9.020.000</h3>
+                                    <input type="hidden" name="total" value="{{$total + 20000}}">
+                                    <h3 class="d-inline-block text-primary m-0">Rp{{$total + 20000}}</h3>
                                 </td>
                             </tr>
                         </table>
                         <div class="d-flex flex-row align-items-center">
-                            <a href="/checkout/order" class="primary-btn mx-2">Buat Pesanan</a>
+                            <button type="submit" name="create_order" class="primary-btn mx-2">Buat Pesanan</button>
                         </div>
                     </div>
+                </form>
                 </div>
             </div>
             <!-- /row -->

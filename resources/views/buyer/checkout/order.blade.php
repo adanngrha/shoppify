@@ -24,13 +24,13 @@
 								<h3>Metode Pembayaran</h3>
 								<hr>
 								<div class="payment">
-									<p class="mb-3 text-gray">Dompet Digital</p>
-									<img src="./img/payment/ovo.png" width="80">
-									<p class="mt-3 mb-0">PT Electro.</p>
-									<p class="title mt-0"><b>127710273</b></p>
+									{{-- <p class="mb-3 text-gray">Dompet Digital</p> --}}
+									{{-- <img src="./img/payment/ovo.png" width="80"> --}}
+									<p class="mt-3 mb-0">{{$payment->name}}</p>
+									<p class="title mt-0"><b>{{$payment->account_number}}</b></p>
 									<hr>
 									<p class="m-0 text-gray">Total Pembayaran</p>
-									<span class="text-primary"><b>Rp10.000</b></span>
+									<span class="text-primary"><b>Rp{{$total}}</b></span>
 								</div>
 								<hr>
 								<h3>Unggah Bukti Transfer</h3>
@@ -43,7 +43,7 @@
 								<hr>
 								<button class="success-btn">Upload Bukti Transfer</button>
 								<br><br>
-								<a href="" class="text-gray">Nanti Saja</a>
+								<a href="#" class="text-gray">Nanti Saja</a>
 							</form>
 						</div>
 					</div>
