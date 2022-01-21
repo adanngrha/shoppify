@@ -152,38 +152,26 @@ class BuyerController extends Controller
 
     //Cart
     public function addCart(Request $request, $productID) {
-        $product = Product::find($productID);
-        $user=auth()->user();
+        $user=request()->user();
 
-        $cart=Cart::create([
-            "user_id" => $user->id,
-            "product_id" => $productID,
-            "quantity" => $request["quantity"],
-        ]);
+        $user->carts()->attach($productID, ['quantity' => $request->quantity]);
 
         return redirect()->back();
     }
 
     public function showCart() {
-        $userID = Auth::id();
-        $products = Product::all()->where('user_id', $userID);
-        $carts = Cart::where('user_id', $userID)->get();
-        $count=Cart::where('user_id', $userID)->count();
+        $user = request()->user();
+        $user->load('carts', 'carts.product_images');
+        $carts = $user->carts;
 
-        $product_images = [];
-        $i = 0;
-        foreach ($products as $product) {
-            $product_image = ProductImage::where('product_id', $product->id)->first();
-            $product_images[$i] = $product_image->picture;
-            $i++;
-        }
-
-        return view('buyer.cart.index', compact('carts','product_images', 'count'));
-
+        return view('buyer.cart.index', compact('carts'));
     }
 
     public function deleteCart($cartID) {
-        Cart::where('id', $cartID)->delete();
+        $user = request()->user();
+        $cart = Cart::where('id', $cartID)->first();
+
+        $user->carts()->detach($cart->products->id);
         return redirect('viewcart')->with('status', 'Profile data successfully delete!');
     }
 

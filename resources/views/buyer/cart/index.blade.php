@@ -43,11 +43,12 @@
                             <tr class="hr text-center">
                                 <td width="60">
                                     <a href="order-details.html" class="no-hover">
-                                        {{-- <img src="{{ url('img-product-upload/'.$product_images[$i]) }}" width="100" alt="">--}}
+
+                                        <img src="{{ asset('img-product-upload/'.$cart->product_images[0]->picture) }}" width="100" alt="">
                                     </a>
                                 </td>
-                                <td class="pt-5 text-left" width="400">{{ $cart->products->name }}</td>
-                                <td class="align-middle">Rp{{ $pr=$cart->products->price }}</td>
+                                <td class="pt-5 text-left" width="400">{{ $cart->name }}</td>
+                                <td class="align-middle">Rp{{ $pr=$cart->price }}</td>
                                 <td class="align-middle" width="100">
                                     <div class="add-to-cart">
                                         <div class="qty-label">
@@ -79,7 +80,7 @@
                     <div class="d-flex flex-col align-items-end mt-4">
                         <table class="table table-borderless">
                             <tr>
-                                <td class="align-middle text-right">Total ({{$count}} Produk) :</td>
+                                <td class="align-middle text-right">Total {{ sizeof($carts) }} Produk :</td>
                                 <td class="align-middle text-right" width="200">
                                     <h3 class="d-inline-block text-primary m-0">Rp{{$total}}</h3>
                                 </td>

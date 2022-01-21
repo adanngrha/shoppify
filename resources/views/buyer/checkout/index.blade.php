@@ -26,7 +26,7 @@
                         {{ $address->address_name }}, {{ $address->city }}, {{ $address->province }}, {{ $address->postal_code }}</p>
                     <hr>
                     <h4><i class="fas fa-fw fa-receipt text-primary"></i> Produk Dipesan</h4>
-        
+
                     <table class="table table-borderless">
                         <thead>
                             <tr class="text-center">
@@ -82,7 +82,7 @@
                                             @if(id=="1")
 
                                             @endif
-                                        @endforeach 
+                                        @endforeach
                                     </select> --}}
                                 </td>
                                 <td class="align-middle text-right">Rp20000</td>
@@ -118,7 +118,7 @@
                                     <div class="d-flex flex-row align-items-center my-4">
                                         {{-- <div class="d-flex flex-col">
                                             <img class="text-left" src="./img/payment/bca.png" width="100">
-                                        </div> 
+                                        </div>
                                         <div class="d-flex flex-col ml-3">
                                             @if ($payment->id<4)
                                             <p>{{$payment->name}}</p>
@@ -142,7 +142,7 @@
                                     <div class="d-flex flex-row align-items-center my-4">
                                         {{-- <div class="d-flex flex-col">
                                             <img class="text-left" src="./img/payment/bca.png" width="100">
-                                        </div> 
+                                        </div>
                                         <div class="d-flex flex-col ml-3">
                                             @if ($payment->id>3)
                                             <p>{{$payment->name}}</p>
@@ -153,7 +153,7 @@
                                 @endforeach
                             </div>
                         </div> --}}
-                    
+
                     <hr>
                     <div class="d-flex flex-col align-items-end mt-4">
                         <table class="table table-borderless">
