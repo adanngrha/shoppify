@@ -19,7 +19,7 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
+        //'name',
         'username',
         'email',
         'password',
@@ -43,4 +43,24 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function address() {
+        return $this->hasMany(Address::class, 'user_id');
+    }
+
+    public function product() {
+        return $this->hasMany(Product::class, 'user_id');
+    }
+
+    public function carts()
+    {
+        return $this->belongsToMany(Product::class, 'carts', 'user_id', 'product_id')->withPivot('quantity');
+    }
+
+    public function order()
+    {
+        return $this->hasMany(Order::class, 'buyer_id');
+    }
+
+
 }

@@ -16,6 +16,14 @@ class isSellerMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        return $next($request);
+        if(auth()->check()) {
+            if (request()->user()->hasRole('seller')) {
+                return $next($request);
+            } else {
+                return redirect('home');
+            }
+        } else {
+            return redirect('login');
+        }
     }
 }
