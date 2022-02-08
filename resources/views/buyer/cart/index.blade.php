@@ -53,7 +53,7 @@
                                     <div class="add-to-cart">
                                         <div class="qty-label">
                                             <div class="input-number">
-                                                <input type="number" value="{{$qty=$cart->quantity}}" min="1" max="">
+                                                <input type="number" value="{{$qty=$cart->pivot->quantity}}" min="1" max="">
                                                 <span class="qty-up">+</span>
                                                 <span class="qty-down">-</span>
                                             </div>

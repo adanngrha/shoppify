@@ -193,8 +193,9 @@ class BuyerController extends Controller
         $address = Address::where('user_id', $user_id)->where('utama', '1')->first();
 
         // Item Dipesan
-        $carts = Cart::where('user_id', $user_id)->get();
-        $count = Cart::where('user_id', $user_id)->count();
+        $user = request()->user();
+        $user->load('carts', 'carts.product_images')->where('id', $user_id)->first();
+        $carts = $user->carts;
 
         // Kurir dan Service
         $couriers = Courier::all();
